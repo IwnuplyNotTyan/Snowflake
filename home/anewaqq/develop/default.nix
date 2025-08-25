@@ -1,6 +1,0 @@
-{
-  import = [
-  	./git
-	#./neovim
-  ];
-}

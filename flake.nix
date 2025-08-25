@@ -4,12 +4,12 @@
   inputs = {
 	# Repository's
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #nur = {
+    #  url = "github:nix-community/NUR";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 	# Addition stuff
-    nixgl.url = "github:nix-community/nixGL";
+    #nixgl.url = "github:nix-community/nixGL";
 	# Home manager
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -54,6 +54,18 @@
             home-manager.users.q = import ./home.nix;
           }
         ];
+
+      nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
+	inherit system;
+	modules = [
+	  ./host/lira/configuration.nix
+	  home-manager.nixosModules.home-manager {
+	    home-manager.useGlobalPkgs = true;
+	    home-manager.useUserPackages = true;
+	    home-manager.users.q = import ./home.nix;
+	  }
+	];
+      }
       };
     };
 }
