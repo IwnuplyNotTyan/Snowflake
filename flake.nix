@@ -17,12 +17,12 @@
     };
   };
   
-  outputs = { nixgl, nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
       inherit system;
-	  overlays = [ nixgl.overlay ];
+	#  overlays = [ nixgl.overlay ];
       };
     in {
       homeConfigurations.anewaqq = home-manager.lib.homeManagerConfiguration {
@@ -54,6 +54,7 @@
             home-manager.users.q = import ./home.nix;
           }
         ];
+	};
 
       nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
 	inherit system;
@@ -65,7 +66,6 @@
 	    home-manager.users.q = import ./home.nix;
 	  }
 	];
-      }
       };
     };
 }
