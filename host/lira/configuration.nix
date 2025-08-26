@@ -53,9 +53,7 @@
   
   # PKGS
   environment.systemPackages = {
-  	shells = with pkgs; [ zsh ];
 	systemPackages 	= with pkgs; [
-  
   neovim
   git
   tmux
