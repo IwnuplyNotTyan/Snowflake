@@ -52,14 +52,12 @@
   services.openssh.enable = true;
   
   # PKGS
-  environment.systemPackages = {
-	systemPackages 	= with pkgs; [
+  environment.systemPackages = with pkgs; [
   neovim
   git
   tmux
   doas
   ];
-  };
 
   # Doas Enable & Config
   security = {
