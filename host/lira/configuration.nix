@@ -49,7 +49,10 @@
 
   environment.systemPackages = with pkgs; [
     neovim
+
+    # Git
     git
+    github-cli
   ];
 
   virtualisation.docker = {
