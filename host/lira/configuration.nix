@@ -56,8 +56,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
+    neovim
+    git
+
+    # Jellyfin
+    #pkgs.jellyfin
+    #pkgs.jellyfin-web
+    #pkgs.jellyfin-ffmpeg
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -70,8 +75,15 @@
 
   # List services that you want to enable:
 
+  #services.jellyfin = {
+  #  enable = true;
+  #  openFirewall = true;
+  #};
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.tailscale.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
