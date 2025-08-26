@@ -15,7 +15,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.enableRedistributableFirmware = true;
-  boot.kernelPackages = pkgs.linuxPackages_6_11;
 
 
   networking.hostName = "nixos"; # Define your hostname.
