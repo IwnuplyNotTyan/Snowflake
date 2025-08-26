@@ -42,7 +42,6 @@
     description = "iwnuplylo";
     extraGroups = [ "networkmanager" "wheel" "audio" ];
     packages = with pkgs; [
-      firefox
      ];
   };
 
