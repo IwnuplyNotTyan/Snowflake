@@ -46,7 +46,7 @@
   users.users.q = {
     isNormalUser = true;
     description = "lira";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
 
@@ -58,11 +58,6 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
-
-    # Jellyfin
-    #pkgs.jellyfin
-    #pkgs.jellyfin-web
-    #pkgs.jellyfin-ffmpeg
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -74,12 +69,9 @@
   # };
 
   # List services that you want to enable:
-
-  #services.jellyfin = {
-  #  enable = true;
-  #  openFirewall = true;
-  #};
-
+  virtualisation.docker = {
+	enable = true;
+  };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
