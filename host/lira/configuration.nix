@@ -1,13 +1,10 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+    # ./apps/jellyfin.nix
     ];
 
   # Bootloader.
@@ -53,13 +50,36 @@
     # Git
     git
     github-cli
+
+    # Jellyfin
+    pkgs.jellyfin
+    pkgs.jellyfin-web
+    pkgs.jellyfin-ffmpeg
   ];
 
   virtualisation.docker = {
 	enable = true;
   };
   services.openssh.enable = true;
-  services.tailscale.enable = true;
+
+  #services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "both"; # Enable routing features
+  };
+
+  # Enable IP forwarding (required for subnet routing)
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+
+  # Open firewall for Tailscale
+  networking.firewall = {
+    enable = true;
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ 41641 ]; # Tailscale port
+  };
 
   system.stateVersion = "24.05";
 }
