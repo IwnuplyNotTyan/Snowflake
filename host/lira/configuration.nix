@@ -7,6 +7,14 @@
     # ./apps/jellyfin.nix
     ];
 
+  fileSystems."/mnt/sda" = {
+  device = "/dev/sdb1";
+  fsType = "ext4";
+  options = [ 
+    "nofail"          # не останавливать загрузку если диск не найден
+  ];
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
