@@ -213,7 +213,7 @@
       lotus-one = {
         image = "nixos/nix:latest";
         dependsOn = [ "tailscale-nix" ];
-        command = [
+        cmd = [
           "while true; do echo 'Nix container running...'; sleep 3600; done"
         ];
         volumes = [

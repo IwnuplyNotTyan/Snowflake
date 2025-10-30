@@ -2,16 +2,16 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
-    # ./apps/jellyfin.nix
+      ./docker.nix
     ];
 
   fileSystems."/mnt/sda" = {
-  device = "/dev/sdb1";
+  device = "/dev/sda1";
   fsType = "ext4";
   options = [ 
-    "nofail"          # не останавливать загрузку если диск не найден
+    "nofail"
   ];
   };
 
