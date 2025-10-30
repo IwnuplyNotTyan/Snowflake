@@ -223,13 +223,10 @@
         extraOptions = [
           "--restart=unless-stopped"
           "--network=container:tailscale-nix"
+	  "--cpus=1.0"
+	  "--memory=1g"
         ];
       };
     };
-  };
-
-  systemd.services."docker-lotus-one".serviceConfig = {
-    CPUQuota = "100%"; # 1 Core
-    MemoryLimit = "1G";
   };
 }
