@@ -16,9 +16,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Nix-on-droid
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
   
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, nix-on-droid, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -57,7 +64,12 @@
         ];
 	};
 
-      nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
+	nixOnDroidConfigurations.nod = nix-on-droid.lib.nixOnDroidConfiguration {
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
+        modules = [ ./host/nod/configuration.nix ];
+      };
+
+     nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
 	inherit system;
 	modules = [
 	  ./host/lira/configuration.nix
