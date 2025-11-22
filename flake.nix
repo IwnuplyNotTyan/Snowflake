@@ -36,8 +36,8 @@
       homeConfigurations.anewaqq = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-	./home.nix
-	#./home/anewaqq
+	#./home.nix
+	./home/anewaqq/home.nix	
 	];
       };
       
@@ -59,25 +59,30 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.q = import ./home.nix;
+            home-manager.users.q = import ./home/anewaqq/home.nix;
           }
         ];
 	};
 
 	nixOnDroidConfigurations.nod = nix-on-droid.lib.nixOnDroidConfiguration {
         pkgs = import nixpkgs { system = "aarch64-linux"; };
-        modules = [ ./host/nod/configuration.nix ];
+        modules = [
+	 ./host/nod/configuration.nix
+
+	           {
+            home-manager = {
+              config = ./host/nod/home.nix;
+              backupFileExtension = "hm-bak";
+              useGlobalPkgs = true;
+            };
+	    }
+	 ];
       };
 
      nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
 	inherit system;
 	modules = [
 	  ./host/lira/configuration.nix
-	 # home-manager.nixosModules.home-manager {
-	 #   home-manager.useGlobalPkgs = true;
-	 #   home-manager.useUserPackages = true;
-	 #   home-manager.users.q = import ./home.nix;
-	 # }
 	];
       };
     };

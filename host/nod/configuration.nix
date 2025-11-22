@@ -2,12 +2,7 @@
 
 {
   # Simply install just the packages
-  environment.packages = with pkgs; [
-    neovim
-    doas
-    git
-    github-cli
-  ];
+ # environment.packages = with pkgs; [];
 
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";

@@ -3,16 +3,8 @@
 {
   home.username = "q";
   home.homeDirectory = "/home/q";
-
-  home.packages = with pkgs; [
-    # Tools
-    git
-
-    # Nixgl
-    #nixgl.nixGLIntel
-  ];
-
-  programs.bash.enable = true;
+ 
+  imports = [ ./main.nix ];
 
   programs.home-manager.enable = true;
   home.stateVersion = "23.11";
