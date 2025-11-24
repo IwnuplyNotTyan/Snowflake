@@ -12,6 +12,9 @@
     # Editor
     neovim
 
+    # SHH
+    openssh
+
     # Nixgl
     #nixgl.nixGLIntel
   ];
