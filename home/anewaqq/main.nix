@@ -5,7 +5,7 @@
 	./module/tools/git.nix
 	./module/tools/root.nix
 
-	./module/shell/zsh.nix
+	#./module/shell/zsh.nix
   ];
 
   home.packages = with pkgs; [
@@ -21,7 +21,6 @@
     bluetuith
 
     # Git
-    gitMinimal
     git-lfs
     lazygit
     github-cli
