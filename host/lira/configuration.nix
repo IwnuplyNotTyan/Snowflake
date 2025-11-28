@@ -9,11 +9,11 @@
     ];
 
   fileSystems."/mnt/sda" = {
-  device = "/dev/sda1";
-  fsType = "ext4";
-  options = [ 
-    "nofail"
-  ];
+	device = "/dev/disk/by-uuid/e1d4f265-ea6d-4864-aff5-943cb3bd3b40";
+	fsType = "ext4";
+	options = [
+	"nofail"
+	];
   };
 
   # Bootloader.
