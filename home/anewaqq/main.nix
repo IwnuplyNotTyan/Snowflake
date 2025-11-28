@@ -1,12 +1,22 @@
 { pkgs, ... }:
 
 {
+  imports = [
+	./module/tools/git.nix
+  ];
+
   home.packages = with pkgs; [
     # Tools
     eza
+    tmux
+
+    # Bluetooth
+    bluetuith
 
     # Git
-    git
+    gitMinimal
+    git-lfs
+    lazygit
     github-cli
 
     # Editor
@@ -14,6 +24,10 @@
 
     # SHH
     openssh
+
+    # Shell
+    zsh
+    starship
 
     # Nixgl
     #nixgl.nixGLIntel

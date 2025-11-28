@@ -16,33 +16,11 @@
   #virtualisation.libvirtd.enable = true;
   #virtualisation.spiceUSBRedirection.enable = true;
 
-  # DNS
-  #  services.stubby = {
-  #    enable = true;
-  #    settings = pkgs.stubby.passthru.settingsExample // {
-  #      upstream_recursive_servers = [{
-  #        address_data = "1.1.1.1";
-  #        tls_auth_name = "cloudflare-dns.com";
-  #        tls_pubkey_pinset = [{
-  #          digest = "sha256";
-  #          value = "GP8Knf7qBae+aIfythytMbYnL+yowaWVeD6MoLHkVRg=";
-  #        }];
-  #      } {
-  #        address_data = "1.0.0.1";
-  #        tls_auth_name = "cloudflare-dns.com";
-  #        tls_pubkey_pinset = [{
-  #          digest = "sha256";
-  #          value = "GP8Knf7qBae+aIfythytMbYnL+yowaWVeD6MoLHkVRg=";
-  #        }];
-  #      }];
-  #    };
-  #  };
-
   # Distrobox
   #virtualisation.podman = {
   #enable = true;
   #dockerCompat = true;
-  };
+  #};
 
   # Boot
   boot.loader.systemd-boot.enable = true;
@@ -112,25 +90,6 @@
   #media-session.enable = true;
   };
 
-  musnix = {
-    enable = true;
-    alsaSeq.enable = false;
-    soundcardPciId = "00:1f.3";
-    rtirq = {
-      # highList = "snd_hrtimer";
-      resetAll = 1;
-      prioLow = 0;
-      enable = true;
-      nameList = "rtc0 snd";
-    };
-  };
-
-  # Bluetooth
-  services.blueman.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluez;
-  hardware.bluetooth.powerOnBoot = true;
-  
   # X11 Enable
   services.xserver.enable = true;
 
@@ -232,24 +191,10 @@
   services.xserver.windowManager.i3.package = pkgs.i3-gaps;
   services.xserver.windowManager.i3.enable = true;
 
-  # Doas Enable & Config
-  security = {
-    doas = {
-    enable = true;
-  extraConfig = ''
-  permit persist keepenv :wheel
-  '';
-  };
-  };
-
   # ADB
   #services.udev.packages = [
   #  pkgs.android-udev-rules
   #];
-
-
-  # Sudo Disable
-  security.sudo.enable = false; # Sudo Disable
 
   # Steam
   programs.steam = {
