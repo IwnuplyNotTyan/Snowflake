@@ -9,6 +9,10 @@
     # Tools
     eza
     tmux
+    bottom
+    ripgrep
+    bat
+    joshuto
 
     # Bluetooth
     bluetuith
