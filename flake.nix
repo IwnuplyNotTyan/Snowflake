@@ -8,15 +8,15 @@
 	
 	# Addition stuff
     	nixgl.url = "github:nix-community/nixGL";
-  	disko = {
-  	  url = "github:nix-community/disko";
-  	  inputs.nixpkgs.follows = "nixpkgs";
-  	};
-	nixos-anywhere = {
- 	   url = "github:nix-community/nixos-anywhere";
- 	   inputs.nixpkgs.follows = "nixpkgs";
- 	   inputs.disko.follows = "disko";
- 	};
+  	#disko = {
+  	#  url = "github:nix-community/disko";
+  	#  inputs.nixpkgs.follows = "nixpkgs";
+  	#};
+	#nixos-anywhere = {
+ 	#   url = "github:nix-community/nixos-anywhere";
+ 	#   inputs.nixpkgs.follows = "nixpkgs";
+ 	#   inputs.disko.follows = "disko";
+ 	#};
 	
 	# Home manager
 	home-manager = {
@@ -32,7 +32,7 @@
     	};
   };
   
-  outputs = { nixpkgs, home-manager, disko, nixgl, nix-on-droid, ... }:
+  outputs = { nixpkgs, home-manager, nixgl, nix-on-droid, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -89,7 +89,12 @@
      nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
 	inherit system;
 	modules = [
-	  disko.nixosModules.disko
+	  home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.q = import ./home/anewaqq/home.nix;
+          }
+	  #disko.nixosModules.disko
 	  ./host/lira/configuration.nix
 	];
       };
