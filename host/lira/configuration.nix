@@ -8,13 +8,13 @@
       ./module/internet.nix
     ];
 
-  fileSystems."/mnt/sda" = {
-	device = "/dev/disk/by-uuid/e1d4f265-ea6d-4864-aff5-943cb3bd3b40";
-	fsType = "ext4";
-	options = [
-	"nofail"
-	];
-  };
+  #fileSystems."/mnt/sda" = {
+  #	device = "/dev/disk/by-uuid/e1d4f265-ea6d-4864-aff5-943cb3bd3b40";
+  #	fsType = "ext4";
+  #	options = [
+  #	"nofail"
+  #	];
+  #};
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
