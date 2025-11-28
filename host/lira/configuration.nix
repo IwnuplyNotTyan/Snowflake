@@ -4,7 +4,8 @@
   imports =
     [
       ./hardware-configuration.nix
-    # ./docker.nix
+      ./module/ssh.nix
+      ./module/internet.nix
     ];
 
   fileSystems."/mnt/sda" = {
@@ -21,11 +22,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "nixos";
 
   networking.networkmanager.enable = true;
 
@@ -58,35 +55,10 @@
     # Git
     git
     github-cli
-
-    # Jellyfin
-    pkgs.jellyfin
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
   ];
 
   virtualisation.docker = {
 	enable = true;
-  };
-  services.openssh.enable = true;
-
-  #services.tailscale.enable = true;
-  services.tailscale = {
-    enable = true;
-    useRoutingFeatures = "both"; # Enable routing features
-  };
-
-  # Enable IP forwarding (required for subnet routing)
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
-  };
-
-  # Open firewall for Tailscale
-  networking.firewall = {
-    enable = true;
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ 41641 ]; # Tailscale port
   };
 
   system.stateVersion = "24.05";

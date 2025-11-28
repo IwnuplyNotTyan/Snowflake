@@ -3,29 +3,36 @@
 
   inputs = {
 	# Repository's
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
-    nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.05";
-    #nur = {
-    #  url = "github:nix-community/NUR";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    	#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
+    	nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.05";
+	
 	# Addition stuff
-    #nixgl.url = "github:nix-community/nixGL";
+    	nixgl.url = "github:nix-community/nixGL";
+  	disko = {
+  	  url = "github:nix-community/disko";
+  	  inputs.nixpkgs.follows = "nixpkgs";
+  	};
+	nixos-anywhere = {
+ 	   url = "github:nix-community/nixos-anywhere";
+ 	   inputs.nixpkgs.follows = "nixpkgs";
+ 	   inputs.disko.follows = "disko";
+ 	};
+	
 	# Home manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+	home-manager = {
+    	  url = "github:nix-community/home-manager";
+    	  inputs.nixpkgs.follows = "nixpkgs";
+    	};
 
-    # Nix-on-droid
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
+    	# Nix-on-droid
+    	nix-on-droid = {
+    	  url = "github:nix-community/nix-on-droid/release-24.05";
+    	  inputs.nixpkgs.follows = "nixpkgs";
+    	  inputs.home-manager.follows = "home-manager";
+    	};
   };
   
-  outputs = { nixpkgs, home-manager, nix-on-droid, ... }:
+  outputs = { nixpkgs, home-manager, disko, nixgl, nix-on-droid, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -82,6 +89,7 @@
      nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
 	inherit system;
 	modules = [
+	  disko.nixosModules.disko
 	  ./host/lira/configuration.nix
 	];
       };
