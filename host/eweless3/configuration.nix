@@ -9,6 +9,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./module/root.nix
     ];
 
   # Virt
@@ -59,7 +60,7 @@
   };
 
   # Kernel
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   
   # User
   users.users.q = {
@@ -75,7 +76,7 @@
   networking.networkmanager.enable = true;
 
   # CUPS
-  services.printing.enable = true;
+  #services.printing.enable = true;
 
   # Sound
   #sound.enable = true;
@@ -91,28 +92,29 @@
   };
 
   # X11 Enable
-  services.xserver.enable = true;
+  services.xserver = {
+  	enable = true;
+  	libinput.enable = true;
+	synaptics.enable = false;
+
+  	displayManager.startx.enable = true;
+  #	displayManager.lightdm.enable = false;
+
+	windowManager.i3.enable = true;
+  };
+
 
   # Layout
   services.xserver = {
     xkb.layout = "us";
     xkbVariant = "";
   };
- 
-  # DM
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.displayManager.lightdm.enable = false;
-
-  # Touchpad 
-  services.libinput.enable = true;
 
   # OpenSSH
   services.openssh.enable = true;
   
   # PKGS
-  environment.systemPackages = {
-  	shells = with pkgs; [ zsh ];
-	systemPackages 	= with pkgs; [
+  environment.systemPackages = with pkgs; [
   
   # Nix
   #nvd
@@ -154,9 +156,9 @@
   #wineWow64Packages.minimal
 
   # Work's
-  aseprite
+  #aseprite
   krita
-  kdenlive
+  kdePackages.kdenlive
   audacity
 
   # Xorg
@@ -172,8 +174,8 @@
 
   # X.org
   xorg.xorgserver
-  xorg.xf86inputevdev
-  xorg.xf86inputsynaptics
+  #xorg.xf86inputevdev
+  #xorg.xf86inputsynaptics
   xorg.xf86inputlibinput
   xorg.xf86videointel # Intel
   
@@ -185,11 +187,7 @@
   #qjackctl
   #jack_capture
   ];
-  };
 
-  # I3 Gaps
-  services.xserver.windowManager.i3.package = pkgs.i3-gaps;
-  services.xserver.windowManager.i3.enable = true;
 
   # ADB
   #services.udev.packages = [

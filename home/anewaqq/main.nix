@@ -3,7 +3,6 @@
 {
   imports = [
 	./module/tools/git.nix
-	./module/tools/root.nix
 
 	#./module/shell/zsh.nix
   ];
