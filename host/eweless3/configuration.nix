@@ -25,6 +25,11 @@
   iosevka
   ];
 
+  # Tailscale
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "both";
+  };
 
   # Virt
   #users.groups.libvirtd.members = ["q"];
