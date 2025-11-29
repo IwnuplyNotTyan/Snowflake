@@ -12,6 +12,20 @@
       ./module/root.nix
     ];
 
+  fonts.packages = with pkgs; [
+  noto-fonts
+  noto-fonts-cjk-sans
+  noto-fonts-color-emoji
+  liberation_ttf
+  fira-code
+  fira-code-symbols
+  mplus-outline-fonts.githubRelease
+  dina-font
+  proggyfonts
+  iosevka
+  ];
+
+
   # Virt
   #users.groups.libvirtd.members = ["q"];
   #virtualisation.libvirtd.enable = true;
@@ -103,6 +117,9 @@
 	windowManager.i3.enable = true;
   };
 
+  programs.steam.gamescopeSession = { 
+	enable = true;
+  };
 
   # Layout
   services.xserver = {
@@ -110,12 +127,19 @@
     xkbVariant = "";
   };
 
+  # Appimage
+  programs.appimage = { 
+	enable = true;
+	binfmt = true;
+  };
+
   # OpenSSH
   services.openssh.enable = true;
   
   # PKGS
   environment.systemPackages = with pkgs; [
-  
+  decky-loader
+
   # Nix
   #nvd
   #nh
@@ -137,12 +161,23 @@
   bat
   bluetuith
   appimage-run
+  pulseaudio
+  go
+  zoxide
+  rmpc
+  steam-run
+  devenv
+  treefmt
+
+  # Fonts
+  iosevka
 
   # GUI
   telegram-desktop
   zathura
   kitty
   maim
+  firefox-esr
   
   # Games
   #ddnet
@@ -196,9 +231,9 @@
 
   # Steam
   programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true;
-  dedicatedServer.openFirewall = true;
+	enable = true;
+	remotePlay.openFirewall = true;
+	dedicatedServer.openFirewall = true;
   };
 
   # Nix
@@ -236,6 +271,8 @@
   #    experimental-features = [ "nix-command" "flakes" ];
   #  };
   #};
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Nixpkgs Rules
   nixpkgs = {

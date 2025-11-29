@@ -17,6 +17,12 @@
  	#   inputs.nixpkgs.follows = "nixpkgs";
  	#   inputs.disko.follows = "disko";
  	#};
+
+	# Overlays
+	jovian = {
+      	    url = "github:Jovian-Experiments/Jovian-NixOS";
+      	    inputs.nixpkgs.follows = "nixpkgs";
+    	};
 	
 	# Home manager
 	home-manager = {
@@ -32,7 +38,7 @@
     	};
   };
   
-  outputs = { nixpkgs, home-manager, nixgl, nix-on-droid, ... }:
+  outputs = { self, nixpkgs, home-manager, jovian, nixgl, nix-on-droid, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -63,6 +69,10 @@
         inherit system;
         modules = [
           ./host/eweless3/configuration.nix
+
+	  {
+            nixpkgs.overlays = [ jovian.overlays.default ];
+          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -75,7 +85,6 @@
         pkgs = import nixpkgs { system = "aarch64-linux"; };
         modules = [
 	 ./host/nod/configuration.nix
-
 	           {
             home-manager = {
               config = ./host/nod/home.nix;
