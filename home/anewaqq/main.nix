@@ -39,6 +39,9 @@
     deadnix
     treefmt
 
+    # Book's
+    zathura
+
     # Games
     #gale
 
