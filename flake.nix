@@ -4,7 +4,7 @@
   inputs = {
 	# Repository's
     	#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
-    	nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.05";
+    	nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.11";
 	
 	# Addition stuff
     	nixgl.url = "github:nix-community/nixGL";
@@ -18,12 +18,6 @@
  	#   inputs.disko.follows = "disko";
  	#};
 
-	# Overlays
-	jovian = {
-      	    url = "github:Jovian-Experiments/Jovian-NixOS";
-      	    inputs.nixpkgs.follows = "nixpkgs";
-    	};
-	
 	# Home manager
 	home-manager = {
     	  url = "github:nix-community/home-manager";
@@ -38,19 +32,19 @@
     	};
   };
   
-  outputs = { self, nixpkgs, home-manager, jovian, nixgl, nix-on-droid, ... }:
+  outputs = { nixpkgs, nixgl, home-manager, nix-on-droid, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
       inherit system;
-	#  overlays = [ nixgl.overlay ];
+	  overlays = [ nixgl.overlay ];
       };
     in {
       homeConfigurations.anewaqq = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-	#./home.nix
-	./home/anewaqq/home.nix	
+	  #./home.nix
+	  ./home/anewaqq/home.nix	
 	];
       };
       
@@ -70,9 +64,6 @@
         modules = [
           ./host/eweless3/configuration.nix
 
-	  {
-            nixpkgs.overlays = [ jovian.overlays.default ];
-          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

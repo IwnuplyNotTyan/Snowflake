@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   programs.git = {
     enable = true;
@@ -19,6 +17,11 @@
       credential."http://lira.iwnuply.store:3000" = {
         helper = "store";
       };
+
+      credential."https://lira.welara-sun.ts.net" = {
+        helper = "store";
+      };
+
       
       http = {
         lowSpeedLimit = 1000;

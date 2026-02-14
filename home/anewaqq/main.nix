@@ -2,22 +2,18 @@
 
 {
   imports = [
-	./module/tools/git.nix
-
+	./module/git
+	./module/ssh
 	#./module/shell/zsh.nix
   ];
 
   home.packages = with pkgs; [
     # Tools
-    eza
     tmux
     bottom
-    ripgrep
-    bat
-    joshuto
-
-    # Bluetooth
+    #joshuto
     bluetuith
+    rmpc
 
     # Git
     git-lfs
@@ -33,8 +29,24 @@
     # Shell
     zsh
     starship
+    ripgrep
+    bat
+    zoxide
+    eza
+
+    # Etc
+    devenv
+    deadnix
+    treefmt
+
+    # Games
+    #gale
+
+    # Video's?
+    kdePackages.kdenlive
+    #audacity
 
     # Nixgl
-    #nixgl.nixGLIntel
+    nixgl.nixGLIntel
   ];
 }
