@@ -1,3 +1,5 @@
+{ pkgs, pkgsUnstable, ... }:
+
 {
   programs.git = {
     enable = true;
@@ -35,6 +37,17 @@
         smudge = "git-lfs smudge -- %f";
         process = "git-lfs filter-process";
       };
+
+      pager.diff = "diffnav";
     };
   };
+
+#programs.gh = {
+#  enable = true;
+#  settings.force = true;
+#  extensions = [
+#    pkgsUnstable.gh-enhance
+#    pkgs.gh-dash
+#  ];
+#};
 }

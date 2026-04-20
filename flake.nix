@@ -3,7 +3,7 @@
 
   inputs = {
 	# Repository's
-    	#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
+    	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
     	nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.11";
 	
 	# Addition stuff
@@ -32,20 +32,19 @@
     	};
   };
   
-  outputs = { nixpkgs, nixgl, home-manager, nix-on-droid, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, nixgl, home-manager, nix-on-droid, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
       inherit system;
 	  overlays = [ nixgl.overlay ];
       };
+      pkgsUnstable = import nixpkgs-unstable { inherit system; };
     in {
       homeConfigurations.anewaqq = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [
-	  #./home.nix
-	  ./home/anewaqq/home.nix	
-	];
+        modules = [ ./home/anewaqq/home.nix ];
+	extraSpecialArgs = { inherit pkgsUnstable; };
       };
       
       nixosConfigurations.anewaqq = nixpkgs.lib.nixosSystem {

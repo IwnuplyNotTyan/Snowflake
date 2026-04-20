@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, lib, ... }:
 
 {
   imports = [
@@ -19,6 +19,9 @@
     git-lfs
     lazygit
     github-cli
+    diffnav
+    #gh-dash
+    #pkgsUnstable.gh-enhance
 
     # Editor
     neovim
@@ -33,11 +36,15 @@
     bat
     zoxide
     eza
+    pkgsUnstable.atuin
 
     # Etc
     devenv
     deadnix
     treefmt
+    chatterino7
+    nodejs_22
+    unrar
 
     # Book's
     zathura
@@ -46,10 +53,18 @@
     #gale
 
     # Video's?
-    kdePackages.kdenlive
+    #kdePackages.kdenlive
     #audacity
 
     # Nixgl
     nixgl.nixGLIntel
+  ];
+  
+  #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  #      "crush"
+  #];
+  
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "unrar"
   ];
 }
