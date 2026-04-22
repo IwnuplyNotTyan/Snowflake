@@ -1,10 +1,12 @@
 { pkgs, pkgsUnstable, lib, ... }:
 
 {
-  imports = [
-	./module/git
-	./module/ssh
+  imports = [ # Some cfg's
+	./module/git.nix # Git(hub)
+	./module/ssh.nix # SSH
 	#./module/shell/zsh.nix
+  ./module/starship.nix # Starship
+  ./module/kitty.nix # Terminal
   ];
 
   home.packages = with pkgs; [
