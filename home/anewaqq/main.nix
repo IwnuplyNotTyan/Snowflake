@@ -3,9 +3,8 @@
 {
   imports = [ # Some cfg's
 	./module/git.nix # Git(hub)
-	./module/ssh.nix # SSH
-	#./module/shell/zsh.nix
-  ./module/starship.nix # Starship
+	./module/ssh # SSH
+  ./module/shell # Starship & zsh
   ./module/kitty.nix # Terminal
   ];
 

@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   programs.starship = {
     enable = true;
@@ -23,67 +21,67 @@
       };
 
       package = {
-        symbol = " ";
+        symbol = "󰏖 ";
         style  = "bold #96d6b0";
       };
 
       ruby = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #ee6a70";
       };
 
       fennel = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #7fc8db";
       };
 
       kotlin = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #cb92f2";
       };
 
       java = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #ee6a70";
       };
 
       golang = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #7ba5dd";
       };
 
       lua = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #cb92f2";
       };
 
       c = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #7fc8db";
       };
 
       python = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #7ba5dd";
       };
 
       nodejs = {
-        symbol = " ";
+        symbol = "󰎙 ";
         style  = "bold #de8f78";
       };
 
       php = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #7ba5dd";
       };
 
       haskell = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #96d6b0";
       };
 
       git_branch = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #de8f78";
       };
 
@@ -96,12 +94,12 @@
       };
 
       docker_context = {
-        symbol = " ";
+        symbol = " ";
         style  = "bold #7ba5dd";
       };
 
       gcloud = {
-        symbol = " ";
+        symbol = "󱇶 ";
         style  = "bold #de8f78";
       };
 
@@ -112,58 +110,6 @@
 
       hostname = {
         style = "bold #bd93f9";
-      };
-
-      os.symbols = {
-        Alpaquita         = "🔔 ";
-        Alpine            = " ";
-        Amazon            = "🙂 ";
-        Android           = " ";
-        Arch              = " ";
-        Artix             = " ";
-        CentOS            = " ";
-        Debian            = " ";
-        DragonFly         = "🐉 ";
-        Emscripten        = "🔗 ";
-        EndeavourOS       = " ";
-        Fedora            = " ";
-        FreeBSD           = " ";
-        Garuda            = "🦅 ";
-        Gentoo            = " ";
-        HardenedBSD       = "🛡 ";
-        Illumos           = "🐦 ";
-        Linux             = " ";
-        Mabox             = "📦 ";
-        Macos             = " ";
-        Manjaro           = " ";
-        Mariner           = "🌊 ";
-        MidnightBSD       = "🌘 ";
-        Mint              = " ";
-        NetBSD            = "🚩 ";
-        NixOS             = " ";
-        OpenBSD           = " ";
-        OpenCloudOS       = "☁️ ";
-        openEuler         = "🦉 ";
-        openSUSE          = " ";
-        OracleLinux       = "🦴 ";
-        Pop               = "🍭 ";
-        Raspbian          = "🍓 ";
-        Redhat            = " ";
-        RedHatEnterprise  = "  ";
-        Redox             = "🧪 ";
-        Solus             = " ";
-        SUSE              = " ";
-        Ubuntu            = " ";
-        Unknown           = " ";
-        Windows           = " ";
-      };
-
-      battery = {
-        full_symbol        = " ";
-        charging_symbol    = " ";
-        discharging_symbol = " ";
-        unknown_symbol     = " ";
-        empty_symbol       = " ";
       };
 
       username = {
