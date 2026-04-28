@@ -3,9 +3,9 @@
 {
   imports = [ # Some cfg's
 	./module/git.nix # Git(hub)
-	./module/ssh # SSH
-  ./module/shell # Starship & zsh
-  ./module/kitty.nix # Terminal
+	./module/ssh 	 # SSH
+  	./module/shell 	 # Starship & zsh
+  	./module/wm	 # I3 & Kitty
   ];
 
   home.packages = with pkgs; [
