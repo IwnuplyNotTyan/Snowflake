@@ -8,13 +8,13 @@
     userEmail = "wolflast21@gmail.com";
     
     extraConfig = {
-      credential."https://github.com" = {
-        helper = "!/run/current-system/sw/bin/gh auth git-credential";
-      };
+      #credential."https://github.com" = {
+      #  helper = "!/run/current-system/sw/bin/gh auth git-credential";
+      #};
       
-      credential."https://gist.github.com" = {
-        helper = "!/run/current-system/sw/bin/gh auth git-credential";
-      };
+      #credential."https://gist.github.com" = {
+      #  helper = "!/run/current-system/sw/bin/gh auth git-credential";
+      #};
       
       credential."http://lira.iwnuply.store:3000" = {
         helper = "store";
@@ -42,12 +42,12 @@
     };
   };
 
-#programs.gh = {
-#  enable = true;
-#  settings.force = true;
-#  extensions = [
-#    pkgsUnstable.gh-enhance
-#    pkgs.gh-dash
-#  ];
-#};
+programs.gh = {
+  enable = true;
+  settings.force = true;
+  extensions = [
+    pkgsUnstable.gh-enhance
+    pkgs.gh-dash
+  ];
+};
 }

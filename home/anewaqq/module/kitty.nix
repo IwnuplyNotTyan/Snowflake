@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, isDarwin ? false, ... }:
 
 {
   programs.kitty = {
     enable = true;
+
+
 
     settings = {
       # Display
@@ -82,6 +84,18 @@
 
     keybindings = {
       "ctrl+shift+w" = "no_op";
+    };
+  };
+
+  xdg.desktopEntries = lib.mkIf (!isDarwin) {
+    kitty = {
+      name = "kitty";
+      genericName = "Terminal Emulator";
+      comment = "Fast, feature-rich, GPU based terminal";
+      exec = "nixGLIntel kitty %u";
+      icon = "kitty";
+      categories = [ "System" "TerminalEmulator" ];
+      terminal = false;
     };
   };
 }

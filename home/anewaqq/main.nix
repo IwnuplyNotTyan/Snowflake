@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, lib, ... }:
+{ pkgs, pkgsUnstable, lib, isDarwin ? false, ... }:
 
 {
   imports = [ # Some cfg's
@@ -13,8 +13,8 @@
     tmux
     bottom
     #joshuto
-    bluetuith
     rmpc
+    comma
 
     # Git
     git-lfs
@@ -56,14 +56,10 @@
     # Video's?
     #kdePackages.kdenlive
     #audacity
-
-    # Nixgl
+  ] ++ lib.optionals (!isDarwin) [
     nixgl.nixGLIntel
+    bluetuith
   ];
-  
-  #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-  #      "crush"
-  #];
   
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "unrar"

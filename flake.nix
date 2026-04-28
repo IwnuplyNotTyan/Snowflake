@@ -8,6 +8,10 @@
 	
 	# Addition stuff
     	nixgl.url = "github:nix-community/nixGL";
+	nix-index-database = { 
+	  url = "github:nix-community/nix-index-database";
+	  inputs.nixpkgs.follows = "nixpkgs";
+	};
   	#disko = {
   	#  url = "github:nix-community/disko";
   	#  inputs.nixpkgs.follows = "nixpkgs";
@@ -32,30 +36,35 @@
     	};
   };
   
-  outputs = { nixpkgs, nixpkgs-unstable, nixgl, home-manager, nix-on-droid, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, nix-index-database, nixgl, home-manager, nix-on-droid, ... }:
     let
+      mkHome = { system, isDarwin ? false }:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ];
+          };
+          pkgsUnstable = import nixpkgs-unstable { inherit system; };
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+	  	./home/anewaqq/home.nix
+		nix-index-database.hmModules.nix-index
+		];
+          extraSpecialArgs = { inherit pkgsUnstable isDarwin nix-index-database; };
+        };
+
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-      inherit system;
-	  overlays = [ nixgl.overlay ];
-      };
-      pkgsUnstable = import nixpkgs-unstable { inherit system; };
     in {
-      homeConfigurations.anewaqq = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home/anewaqq/home.nix ];
-	extraSpecialArgs = { inherit pkgsUnstable; };
+      homeConfigurations.anewaqq = mkHome {
+        system = "x86_64-linux";
+        isDarwin = false;
       };
-      
-      nixosConfigurations.anewaqq = nixpkgs.lib.nixosSystem {
-	inherit system;
-	modules = [
-	  home-manager.nixosModules.home-manager {
-	    home-manager.useGlobalPkgs = true;
-	    home-manager.useUserPackages = true;
-	    home-manager.users.q = import ./home.nix;
-	  }
-	];
+
+      homeConfigurations."anewaqq@darwin" = mkHome {
+        system = "x86_64-darwin";
+        isDarwin = true;
       };
       
       nixosConfigurations.eweless3 = nixpkgs.lib.nixosSystem {
@@ -99,4 +108,3 @@
       };
     };
 }
-
