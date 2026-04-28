@@ -44,7 +44,6 @@
 
 programs.gh = {
   enable = true;
-  settings.force = true;
   extensions = [
     pkgsUnstable.gh-enhance
     pkgs.gh-dash
