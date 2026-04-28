@@ -5,7 +5,10 @@
 	./module/git.nix # Git(hub)
 	./module/ssh 	 # SSH
   	./module/shell 	 # Starship & zsh
+	] ++ lib.optionals (!isDarwin) [ # (Non)Nixos 
   	./module/wm	 # I3 & Kitty
+	] ++ lib.optionals (isDarwin) [ # MacOS
+	./module/wm/kitty.nix # Only Kitty
   ];
 
   home.packages = with pkgs; [
@@ -15,14 +18,6 @@
     #joshuto
     rmpc
     comma
-
-    # Git
-    git-lfs
-    lazygit
-    github-cli
-    diffnav
-    #gh-dash
-    #pkgsUnstable.gh-enhance
 
     # Editor
     neovim
@@ -49,13 +44,6 @@
 
     # Book's
     zathura
-
-    # Games
-    #gale
-
-    # Video's?
-    #kdePackages.kdenlive
-    #audacity
   ] ++ lib.optionals (!isDarwin) [
     nixgl.nixGLIntel
     bluetuith

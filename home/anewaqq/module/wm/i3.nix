@@ -34,7 +34,7 @@ in
 
     kitty
 
-    (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; })
+    nerd-fonts.iosevka
 
     # vicinae
   ];
@@ -52,11 +52,14 @@ in
 
       terminal = "kitty";
 
-      defaultBorder = "pixel 0";
+      window.border = 0;
+      floating.border = 0;
 
       gaps = {
         inner = 6;
       };
+
+      bars = [];
 
       floating.modifier = mod;
 
@@ -166,7 +169,7 @@ in
           notification = false;
         }
         {
-          command = "picom -b";
+          command = "nixGLIntel picom -b";
           always  = true;
           notification = false;
         }
