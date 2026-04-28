@@ -1,6 +1,13 @@
 { pkgs, pkgsUnstable, ... }:
 
 {
+  home.packages = with pkgs; [
+    git-lfs
+    lazygit
+    github-cli
+    diffnav
+  ];
+
   programs.git = {
     enable = true;
     
