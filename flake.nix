@@ -12,6 +12,7 @@
 	  url = "github:nix-community/nix-index-database";
 	  inputs.nixpkgs.follows = "nixpkgs";
 	};
+	agenix.url = "github:ryantm/agenix";
   	#disko = {
   	#  url = "github:nix-community/disko";
   	#  inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +37,7 @@
     	};
   };
   
-  outputs = { nixpkgs, nixpkgs-unstable, nix-index-database, nixgl, home-manager, nix-on-droid, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, agenix, nix-index-database, nixgl, home-manager, nix-on-droid, ... }:
     let
       mkHome = { system, isDarwin ? false }:
         let
@@ -51,6 +52,7 @@
           modules = [
 	  	./home/anewaqq/home.nix
 		nix-index-database.hmModules.nix-index
+		agenix.homeManagerModules.age
 		];
           extraSpecialArgs = { inherit pkgsUnstable isDarwin nix-index-database; };
         };
