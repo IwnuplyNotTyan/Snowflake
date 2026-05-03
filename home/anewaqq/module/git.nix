@@ -6,6 +6,7 @@
     lazygit
     github-cli
     diffnav
+    git
   ];
 
   programs.git = {
