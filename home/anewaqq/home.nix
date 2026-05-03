@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   isDarwin ? false,
   ...
 }:
@@ -25,6 +26,12 @@
     # *MacOS
     ./module/wm/kitty.nix # *Only Kitty
     #./module/wm/neru.nix		 # *Neru too
+  ];
+
+  nix.package = pkgs.nix;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
   ];
 
   programs.home-manager.enable = true;
