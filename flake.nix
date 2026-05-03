@@ -53,6 +53,7 @@
       nixgl,
       home-manager,
       nix-on-droid,
+      waqq,
       ...
     }:
     let
@@ -76,7 +77,14 @@
             agenix.homeManagerModules.age
             #neru.homeManagerModules.default
           ];
-          extraSpecialArgs = { inherit pkgsUnstable isDarwin nix-index-database; };
+          extraSpecialArgs = {
+            inherit
+              pkgsUnstable
+              isDarwin
+              nix-index-database
+              waqq
+              ;
+          };
         };
 
       system = "x86_64-linux";

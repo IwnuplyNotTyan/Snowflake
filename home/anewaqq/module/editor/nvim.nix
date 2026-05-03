@@ -1,10 +1,10 @@
-{ pkgs, inputs, ... }:
+{ pkgs, waqq, ... }:
 
 {
   home.packages = with pkgs; [ neovim ];
 
   xdg.configFile."nvim" = {
-    source = inputs.waqq;
+    source = waqq;
     recursive = true;
   };
 }
