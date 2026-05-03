@@ -3,16 +3,17 @@
 
   inputs = {
 	# Repository's
-    	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
-    	nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.11";
+    	nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; 	# Unstable
+    	nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.11";		#25.11
 	
 	# Addition stuff
-    	nixgl.url = "github:nix-community/nixGL";
-	nix-index-database = { 
-	  url = "github:nix-community/nix-index-database";
+    	nixgl.url = "github:nix-community/nixGL"; 			# LibGL
+	nix-index-database = {
+	  url = "github:nix-community/nix-index-database";		# Nix index
 	  inputs.nixpkgs.follows = "nixpkgs";
 	};
-	agenix.url = "github:ryantm/agenix";
+	agenix.url = "github:ryantm/agenix"; 				# Crypt
+	neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
   	#disko = {
   	#  url = "github:nix-community/disko";
   	#  inputs.nixpkgs.follows = "nixpkgs";
@@ -37,13 +38,13 @@
     	};
   };
   
-  outputs = { nixpkgs, nixpkgs-unstable, agenix, nix-index-database, nixgl, home-manager, nix-on-droid, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, agenix, neru, nix-index-database, nixgl, home-manager, nix-on-droid, ... }:
     let
       mkHome = { system, isDarwin ? false }:
         let
           pkgs = import nixpkgs {
             inherit system;
-            overlays = nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ];
+            overlays = [ neru.overlays.default ] ++ nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ];
           };
           pkgsUnstable = import nixpkgs-unstable { inherit system; };
         in
@@ -53,6 +54,7 @@
 	  	./home/anewaqq/home.nix
 		nix-index-database.hmModules.nix-index
 		agenix.homeManagerModules.age
+		neru.homeManagerModules.default
 		];
           extraSpecialArgs = { inherit pkgsUnstable isDarwin nix-index-database; };
         };

@@ -13,6 +13,7 @@
   	./module/wm	 		 # I3 & Kitty
 	] ++ lib.optionals (isDarwin) [  # *MacOS
 	./module/wm/kitty.nix 		 # *Only Kitty
+	./module/wm/neru.nix		 # *Neru too
   ];
 
 
