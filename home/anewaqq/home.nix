@@ -9,11 +9,12 @@
 	./module/git.nix 		 # Git(hub)
 	./module/ssh 	 		 # SSH
   	./module/shell 	 		 # Starship & zsh
+	./module/editor			 # Text editor
 	] ++ lib.optionals (!isDarwin) [ # *(Non)Nixos 
   	./module/wm	 		 # I3 & Kitty
 	] ++ lib.optionals (isDarwin) [  # *MacOS
 	./module/wm/kitty.nix 		 # *Only Kitty
-	./module/wm/neru.nix		 # *Neru too
+	#./module/wm/neru.nix		 # *Neru too
   ];
 
 

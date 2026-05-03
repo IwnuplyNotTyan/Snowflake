@@ -1,0 +1,5 @@
+{
+ import = [
+  ./zed.nix # Zed
+ ];
+}
