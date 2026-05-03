@@ -1,4 +1,10 @@
 {
+  lib,
+  isDarwin,
+  ...
+}:
+
+{
   programs.zathura = {
     enable = true;
     options = {
@@ -42,6 +48,21 @@
       highlight-color = "#0B0F10";
       highlight-fg = "#c5c8c9";
       highlight-active-color = "#0B0F10";
+    };
+  };
+
+  xdg.desktopEntries = lib.mkIf (!isDarwin) {
+    zathura = {
+      name = "zathura";
+      genericName = "Document Viewer";
+      comment = "A highly customizable document viewer";
+      exec = "nixGLIntel zathura %u";
+      icon = "zathura";
+      categories = [
+        "Office"
+        "Viewer"
+      ];
+      terminal = false;
     };
   };
 }
