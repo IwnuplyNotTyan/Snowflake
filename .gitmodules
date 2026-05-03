@@ -1,0 +1,3 @@
+[submodule "home/anewaqq/module/editor/nvim"]
+	path = home/anewaqq/module/editor/nvim
+	url = https://github.com/iwnuplynottyan/waqq
