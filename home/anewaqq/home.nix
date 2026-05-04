@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   isDarwin ? false,
   ...
 }:
@@ -17,6 +16,7 @@
     ./module/shell # Starship & zsh
     ./module/editor # Text editor
     ./module/tools/zathura.nix # Zathura
+    ./module/nix.nix # Nix
   ]
   ++ lib.optionals (!isDarwin) [
     # *(Non)Nixos
@@ -26,12 +26,6 @@
     # *MacOS
     ./module/wm/kitty.nix # *Only Kitty
     #./module/wm/neru.nix		 # *Neru too
-  ];
-
-  nix.package = pkgs.nix;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
   ];
 
   programs.home-manager.enable = true;
