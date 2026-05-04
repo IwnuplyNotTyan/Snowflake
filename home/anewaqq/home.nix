@@ -25,7 +25,7 @@
   ++ lib.optionals (isDarwin) [
     # *MacOS
     ./module/wm/kitty.nix # *Only Kitty
-    #./module/wm/neru.nix		 # *Neru too
+    ./module/wm/miri.nix   # *Miri WM
   ];
 
   programs.home-manager.enable = true;

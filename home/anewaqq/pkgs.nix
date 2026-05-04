@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgsUnstable,
   lib,
   isDarwin ? false,
   ...
@@ -16,10 +15,6 @@
       rmpc
       comma
 
-      # Editor
-      lib.optionals (!isDarwin) [
-        pkgsUnstable.opencode
-      ]
       # Fonts
       nerd-fonts.iosevka
 

@@ -68,11 +68,13 @@
             overlays = nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ]; # ++ [ neru.overlays.default ]
           };
           pkgsUnstable = import nixpkgs-unstable { inherit system; };
+          miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
             ./home/anewaqq/home.nix
+            ./pkgs/miri/option.nix
             nix-index-database.hmModules.nix-index
             agenix.homeManagerModules.age
             #neru.homeManagerModules.default
@@ -83,6 +85,7 @@
               isDarwin
               nix-index-database
               waqq
+              miriPkg
               ;
           };
         };
