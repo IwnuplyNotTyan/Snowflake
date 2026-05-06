@@ -44,7 +44,7 @@
       set -g @offline_icon "#[fg=#ee6a70,none]󱛅 #[default]"
 
       set -g  status-left '#[fg=black,bold,bg=#96d6b0]#{pane_mode}#[fg=#96d6b0,none]'
-      set -ga status-left '#{?client_prefix,#[bg=default],#[bg=default]} #[fg=#c5c8c9,bold]#S#[fg=none] '
+      set -ga status-left '#{?client_prefix,#[bg=default],#[bg=default]} #[fg=#c5c8c9,bold]#S#[fg=none] '
       set -ga status-left '#[bg=default]#{?client_prefix,#[fg=#c5c8c9,#[fg=default]  }'
       set -g  status-left-length 80
 
