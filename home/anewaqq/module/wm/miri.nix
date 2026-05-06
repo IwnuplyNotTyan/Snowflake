@@ -8,7 +8,6 @@
     settings = {
       animationDurationMs = 50;
       outerGap = 5;
-      excludedKeybindings = [ "cmd+0" ];
     };
   };
 }
