@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   isDarwin,
   ...
 }:
@@ -65,4 +66,35 @@
       terminal = false;
     };
   };
+
+home.file."Applications/Zathura.app/Contents/Info.plist".text = lib.mkIf isDarwin ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>CFBundleExecutable</key>
+      <string>zathura</string>
+      <key>CFBundleName</key>
+      <string>Zathura</string>
+      <key>CFBundleDisplayName</key>
+      <string>Zathura</string>
+      <key>CFBundleIdentifier</key>
+      <string>org.pwmt.zathura</string>
+      <key>CFBundleVersion</key>
+      <string>1.0</string>
+      <key>CFBundlePackageType</key>
+      <string>APPL</string>
+      <key>LSMinimumSystemVersion</key>
+      <string>10.13</string>
+      <key>NSHighResolutionCapable</key>
+      <true/>
+    </dict>
+    </plist>
+  '';
+
+home.file."Applications/Zathura.app/Contents/MacOS/zathura".source = lib.mkIf isDarwin (
+  pkgs.writeShellScript "zathura" ''
+    exec ${pkgs.zathura}/bin/zathura "$@"
+  ''
+);
 }
