@@ -67,7 +67,8 @@
     };
   };
 
-home.file."Applications/Zathura.app/Contents/Info.plist".text = lib.mkIf isDarwin ''
+  home.file = lib.mkIf isDarwin {
+  "Applications/Zathura.app/Contents/Info.plist".text = ''
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
@@ -92,9 +93,9 @@ home.file."Applications/Zathura.app/Contents/Info.plist".text = lib.mkIf isDarwi
     </plist>
   '';
 
-home.file."Applications/Zathura.app/Contents/MacOS/zathura".source = lib.mkIf isDarwin (
-  pkgs.writeShellScript "zathura" ''
-    exec ${pkgs.zathura}/bin/zathura "$@"
-  ''
-);
+  "Applications/Zathura.app/Contents/MacOS/zathura".source =
+    pkgs.writeShellScript "zathura" ''
+      exec ${pkgs.zathura}/bin/zathura "$@"
+    '';
+};
 }
