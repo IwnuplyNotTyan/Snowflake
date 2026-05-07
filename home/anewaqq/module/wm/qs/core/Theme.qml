@@ -4,18 +4,18 @@ import QtQuick
 QtObject {
     id: root
 
-    property color background: "#1e1e2e"
-    property color surface: "#313244"
-    property color foreground: "#cdd6f4"
-    property color accent: "#cba6f7"
-    property color secondary: "#a6adc8"
-    property color error: "#f38ba8"
-    property color warning: "#fab387"
-    property color success: "#a6e3a1"
+    property color background: "#0B0F10"
+    property color surface: "#131718"
+    property color foreground: "#c5c8c9"
+    property color accent: "#96d6b0"
+    property color secondary: "#7ba5dd"
+    property color error: "#df5b61"
+    property color warning: "#de8f78"
+    property color success: "#87c7a1"
 
-    property int fontSizeSmall: 12
-    property int fontSizeMedium: 14
-    property int fontSizeLarge: 18
+    property int fontSizeSmall: 18
+    property int fontSizeMedium: 20
+    property int fontSizeLarge: 22
 
     property int borderRadius: 10
     property int spacing: 10

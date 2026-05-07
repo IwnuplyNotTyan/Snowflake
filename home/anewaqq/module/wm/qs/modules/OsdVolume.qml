@@ -94,7 +94,7 @@ Column {
                         if (volume <= 66) return " "
                         return " "
 		    }
-		    color: "#cccccc"
+		    color: "#c5c8c9"
                     font.pixelSize: 14
                     anchors.verticalCenter: parent.verticalCenter
                 }
@@ -104,28 +104,28 @@ Column {
                     height: 6
                     radius: 3
                     anchors.verticalCenter: parent.verticalCenter
-                    color: "#cccccc"
+                    color: "#c5c8c9"
 
                     Rectangle {
                         width: parent.width * (root.volume / 100)
                         height: parent.height
                         radius: parent.radius
-                        color: "#cccccc"
+                        color: "#c5c8c9"
                     }
                 }
 
                 Text {
                     text: root.currentTime
-                    color: "#cccccc"
-                    font.pixelSize: 10
-                    anchors.verticalCenter: parent.verticalCenter
+                    color: "#c5c8c9"
+                    font.pixelSize: 14
+                    anchors.verticalCenter: parent.horizontalCenterCenter
                 }
             }
 
             Text {
                 text: root.sinkName
-                color: "#cccccc"
-                font.pixelSize: 11
+                color: "#c5c8c9"
+                font.pixelSize: 15
                 anchors.horizontalCenter: parent.horizontalCenter
             }
         }
