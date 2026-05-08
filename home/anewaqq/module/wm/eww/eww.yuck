@@ -1,0 +1,25 @@
+(deflisten volume "vol-listener")
+(defwidget volume-popup []
+  (box
+    :class "volume_pop"
+    :hexpand true
+    (box
+      :class "scale"
+      (scale
+        :min 0 
+        :max 101
+        :value {volume == "muted" ? 0 : volume ?: 0}
+        :active false
+      )
+    )
+  )
+)
+(defwindow volume
+  :monitor 0
+  :stacking "overlay"
+  :focusable false
+  :wm-ignore true
+  :windowtype "dock"
+  :geometry (geometry :y "-20px" :x "-20px" :width "10%" :anchor "bottom right")
+  (volume-popup)
+)

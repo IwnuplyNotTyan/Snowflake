@@ -6,7 +6,8 @@
   ] ++ lib.optionals (!isDarwin) [
   ./i3.nix 	# WM
   ./picom.nix	# Picom
-  ./qs/qs.nix   # Widgets
+  #./qs/qs.nix  # Widgets
+  ./eww/eww.nix
   ]
   ++ lib.optionals (isDarwin) [
   #./neru.nix	# Neru

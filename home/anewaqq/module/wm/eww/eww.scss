@@ -1,0 +1,50 @@
+* {
+  all: unset;
+  transition: 200ms;
+}
+$bg: #0B0F10;
+$bg-alt: #101415;
+$fg: #c5c8c9;
+$fg-alt: #cccccc;
+$black: #131718;
+$gray: #4c4c4c;
+$red: #dd6777;
+$green: #9ec49f;
+$yellow: #ceb188;
+$blue: #a39ec4;
+$magenta: #c49ec4;
+$cyan: #9ec3c4;
+$white: $fg;
+
+window>.volume_pop {
+  margin: 0rem;
+  background-color: #0B0F10;
+  border-radius: 6px;
+}
+
+.volume_pop {
+  font-family: "feather";
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: 200ms cubic-bezier(0.05, 0.9, 0.1, 1);
+  
+  label {
+    font-size: 2.2rem;
+    padding: 0 0.8rem;
+  }
+  
+  .scale scale trough highlight {
+    all: unset;
+    background-color: $fg;
+    border-radius: 4px;
+  }
+  
+  .scale scale trough {
+    all: unset;
+    background-color: #101415;
+    border-radius: 4px;
+    min-height: 3rem;
+    min-width: 15rem;
+  }
+}
