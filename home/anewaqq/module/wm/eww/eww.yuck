@@ -10,8 +10,8 @@
       :class "player_cover"
       (image
         :path {player.cover ?: ""}
-        :image-width 48
-        :image-height 48
+        :image-width 240
+        :image-height 240
       )
     )
     (box
@@ -30,12 +30,21 @@
       )
       (box
         :class "player_progress"
+        :spacing 4
+        ;(label
+        ;  :class "player_time"
+        ;  :text {player.elapsed ?: "0:00"}
+        ;)
         (scale
           :min 0
           :max {player.duration ?: 100}
           :value {player.position ?: 0}
           :active false
         )
+        ;(label
+        ;  :class "player_time"
+        ;  :text {player.duration > 0 ? "-${player.remaining}" : "-0:00"}
+        ;)
       )
     )
   )
