@@ -1,4 +1,46 @@
 (deflisten volume "vol-listener")
+(deflisten player "player-listener")
+
+(defwidget player-widget []
+  (box
+    :class "player_widget"
+    :hexpand true
+    :spacing 8
+    (box
+      :class "player_cover"
+      (image
+        :path {player.cover ?: ""}
+        :image-width 48
+        :image-height 48
+      )
+    )
+    (box
+      :class "player_info"
+      :orientation "vertical"
+      :space-evenly false
+      (label
+        :class "player_title"
+        :text {player.title ?: "No track"}
+        :truncate true
+      )
+      (label
+        :class "player_artist"
+        :text {player.artist ?: "Unknown"}
+        :truncate true
+      )
+      (box
+        :class "player_progress"
+        (scale
+          :min 0
+          :max {player.duration ?: 100}
+          :value {player.position ?: 0}
+          :active false
+        )
+      )
+    )
+  )
+)
+
 (defwidget volume-popup []
   (box
     :class "volume_pop"
@@ -14,6 +56,17 @@
     )
   )
 )
+
+(defwindow player
+  :monitor 0
+  :stacking "bg"
+  :focusable false
+  :wm-ignore true
+  :windowtype "dock"
+  :geometry (geometry :x "-20px" :y "-20px" :width "300px" :anchor "bottom right")
+  (player-widget)
+)
+
 (defwindow volume
   :monitor 0
   :stacking "overlay"
