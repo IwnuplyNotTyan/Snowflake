@@ -2,53 +2,18 @@
 (deflisten player "player-listener")
 
 (defwidget player-widget []
-  (box
-    :class "player_widget"
-    :hexpand true
-    :spacing 8
-    (box
-      :class "player_cover"
-      (image
-        :path {player.cover ?: ""}
-        :image-width 240
-        :image-height 240
-      )
-    )
-    (box
-      :class "player_info"
-      :orientation "vertical"
-      :space-evenly false
-      (label
-        :class "player_title"
-        :text {player.title ?: "No track"}
-        :truncate true
-      )
-      (label
-        :class "player_artist"
-        :text {player.artist ?: "Unknown"}
-        :truncate true
-      )
-      (box
-        :class "player_progress"
-        :spacing 4
-        ;(label
-        ;  :class "player_time"
-        ;  :text {player.elapsed ?: "0:00"}
-        ;)
-        (scale
-          :min 0
-          :max {player.duration ?: 100}
-          :value {player.position ?: 0}
-          :active false
-        )
-        ;(label
-        ;  :class "player_time"
-        ;  :text {player.duration > 0 ? "-${player.remaining}" : "-0:00"}
-        ;)
-      )
-    )
-  )
-)
+(box :class "player_widget" :orientation "v" :space-evenly false
+    (box :orientation "h" :space-evenly false :spacing 15
+      (box :class "player_cover"
+           :style "background-image: url('${player.cover}');"
+           :width 80 :height 80)
+      
+      (box :class "player_info" :orientation "v" :space-evenly false :valign "center"
+        (label :class "player_title" :text "${player.title}" :limit-width 20 :halign "start")
+        (label :class "player_artist" :text "${player.artist}" :limit-width 25 :halign "start")))
+
+    (box :class "player_progress"
+      (scale :min 0 :max "${player.duration}" :value "${player.position}"))))
 
 (defwidget volume-popup []
   (box

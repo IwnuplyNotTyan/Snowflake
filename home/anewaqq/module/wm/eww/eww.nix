@@ -47,22 +47,18 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
     }
 
     get_player_info() {
-      # 1. Сначала ищем плеер, который РЕАЛЬНО играет в данный момент
       local player
       player=$(playerctl --list-all 2>/dev/null | xargs -I {} playerctl -p {} status -f "{} {{status}}" 2>/dev/null | grep "Playing" | cut -d' ' -f1 | head -1)
 
-      # 2. Если никто не играет, берем первый доступный (например, mpd или браузер на паузе)
       if [ -z "$player" ]; then
         player=$(playerctl --list-all 2>/dev/null | head -1)
       fi
 
-      # 3. Если плееров вообще нет
       if [ -z "$player" ] || [ "$player" = "No players found" ]; then
         echo '{"title": "No track", "artist": "Unknown", "cover": "", "duration": 100, "position": 0, "elapsed": "0:00", "remaining": "0:00"}'
         return
       fi
 
-      # Извлекаем метаданные конкретного выбранного плеера
       local title artist arturl mpris_len pos
       title=$(playerctl -p "$player" metadata title 2>/dev/null)
       artist=$(playerctl -p "$player" metadata artist 2>/dev/null)
@@ -70,7 +66,6 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
       mpris_len=$(playerctl -p "$player" metadata mpris:length 2>/dev/null)
       pos=$(playerctl -p "$player" position 2>/dev/null)
 
-      # Обработка длительности
       if [[ "$mpris_len" =~ ^[0-9]+$ ]]; then
           duration_secs=$((mpris_len / 1000000))
       else
@@ -78,25 +73,21 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
       fi
       [ "$duration_secs" -eq 0 ] && duration_secs=100
 
-      # Обработка позиции (обрезаем дробную часть через sed)
       pos_secs=$(echo "$pos" | sed 's/\..*//')
       [ -z "$pos_secs" ] && pos_secs=0
 
-      # Обработка обложки (Chrome/MPD фикс)
       local cover_path=""
       clean_url=$(echo "$arturl" | sed 's/file:\/\///g')
       if [ -f "$clean_url" ]; then
           cover_path="$clean_url"
       fi
 
-      # JSON вывод
       clean_title=$(echo "''${title:-No Title}" | sed 's/"/\\"/g')
       clean_artist=$(echo "''${artist:-Unknown Artist}" | sed 's/"/\\"/g')
 
       echo "{\"title\": \"$clean_title\", \"artist\": \"$clean_artist\", \"cover\": \"$cover_path\", \"duration\": $duration_secs, \"position\": $pos_secs, \"elapsed\": \"$(format_time $pos_secs)\", \"remaining\": \"$(format_time $((duration_secs - pos_secs)))\"}"
     }
 
-    # Бесконечный цикл с мгновенным обновлением
     get_player_info
     playerctl metadata -F --format '{{status}}' 2>/dev/null | while read -r _; do
       get_player_info

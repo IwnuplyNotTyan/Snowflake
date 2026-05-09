@@ -50,18 +50,18 @@ window {
 .player_widget {
   background-color: $bg;
   border-radius: 6px; 
-  padding: 15px;
+  padding: 15px; // Внутренние отступы, чтобы контент не лип к краям
   
   .player_cover {
-    image {
-      border-radius: 6px;
-      background-color: $bg-alt;
-    }
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 6px;
+    background-size: cover;
+    background-color: $bg-alt;
   }
-  
+
   .player_info {
-    padding-left: 15px;
-    
+    // Убираем padding-left, если используем :spacing в боксе
     .player_title {
       font-size: 1rem;
       font-weight: bold;
@@ -72,28 +72,28 @@ window {
       font-size: 0.9rem;
       color: $fg-alt;
     }
+  }
 
-    .player_progress {
-      margin-top: 55px;
-      
-      scale {
-        trough {
+  .player_progress {
+    margin-top: 10px; // Отступ сверху от фото/текста
+
+    scale {
+      trough {
+        all: unset;
+        background-color: $bg-alt;
+        border-radius: 6px;
+        min-height: 40px;
+        min-width: 250px;
+
+        highlight {
           all: unset;
-          background-color: rgba($gray, 0.3);
+          background-color: $fg;
           border-radius: 6px;
-          min-height: 20px;
-          min-width: 100px;
-          padding-left: 0px;
-          padding: 0px;
-          padding-right: 0px;
-          
-          highlight {
-            all: unset;
-            background-color: $fg;
-            border-radius: 8px;
-          }
         }
-        slider { all: unset; }
+      }
+      
+      slider {
+        all: unset; // Скрываем кружок слайдера для чистого вида
       }
     }
   }
