@@ -2,14 +2,23 @@
 
 let
   volListener = pkgs.writeShellScriptBin "vol-listener" ''
-    PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.pamixer pkgs.pulseaudio pkgs.ripgrep ]}"
+    PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.pamixer pkgs.gnused pkgs.pulseaudio pkgs.ripgrep ]}"
     
-    get_vol() { pamixer --get-volume-human | tr -d '%'; }
-    
+get_vol() {
+  local vol=$(pamixer --get-volume-human | tr -d '%') # 
+  
+  local sink_name=$(pactl get-default-sink)
+  local device=$(pactl list sinks | grep -A 50 "Name: $sink_name" | grep "Description:" | cut -d: -f2- | xargs)
+  
+  local short_device=$(echo "$device" | sed 's/Built-in Audio //; s/Digital Stereo //')
+
+  echo "{\"percent\": \"$vol\", \"device\": \"$short_device\"}"
+}
+
+get_vol
+pactl subscribe | rg --line-buffered "on sink" | while read -r _; do
     get_vol
-    pactl subscribe | rg --line-buffered "on sink" | while read -r _; do
-        get_vol
-    done
+done
   '';
 
   volPopup = pkgs.writeShellScriptBin "vol-popup" ''
@@ -88,9 +97,9 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
       echo "{\"title\": \"$clean_title\", \"artist\": \"$clean_artist\", \"cover\": \"$cover_path\", \"duration\": $duration_secs, \"position\": $pos_secs, \"elapsed\": \"$(format_time $pos_secs)\", \"remaining\": \"$(format_time $((duration_secs - pos_secs)))\"}"
     }
 
-    get_player_info
-    playerctl metadata -F --format '{{status}}' 2>/dev/null | while read -r _; do
+    while true; do
       get_player_info
+      sleep 1
     done
   '';
 in {

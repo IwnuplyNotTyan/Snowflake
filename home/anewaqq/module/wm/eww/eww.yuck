@@ -1,5 +1,6 @@
 (deflisten volume "vol-listener")
 (deflisten player "player-listener")
+(defpoll time :interval "1s" "date '+%H:%M'")
 
 (defwidget player-widget []
 (box :class "player_widget" :orientation "v" :space-evenly false
@@ -9,11 +10,18 @@
            :width 80 :height 80)
       
       (box :class "player_info" :orientation "v" :space-evenly false :valign "center"
-        (label :class "player_title" :text "${player.title}" :limit-width 20 :halign "start")
-        (label :class "player_artist" :text "${player.artist}" :limit-width 25 :halign "start")))
+        (label :class "player_title" :text "${player.title}" :halign "start")
+        (label :class "player_artist" :text "${player.artist}" :halign "start")))
 
     (box :class "player_progress"
-      (scale :min 0 :max "${player.duration}" :value "${player.position}"))))
+      (scale :min 0 :max "${player.duration}" :value "${player.position}":vexpand true))
+      (box :class "player_footer" 
+         :orientation "h" 
+         :space-evenly true 
+      (label :text "󱎫  ${time}" :halign "start")
+      (label :text "󰓃  ${volume.device}" :halign "end"))
+  )
+)
 
 (defwidget volume-popup []
   (box
