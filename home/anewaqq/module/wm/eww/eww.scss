@@ -49,8 +49,8 @@ window {
 
 .player_widget {
   background-color: $bg;
-  border-radius: 6px; 
-  padding: 15px; // Внутренние отступы, чтобы контент не лип к краям
+  border-radius: 6px;
+  padding: 10px;
   
   .player_cover {
     min-width: 80px;
@@ -74,20 +74,16 @@ window {
   }
 
   .player_footer {
-  background-color: $bg-alt;
-  color: $fg-alt; 
-  margin-top: 5px; 
-  padding: 10px; 
-  border-radius: 6px;
-  
-  min-width: 320px; 
-  font-size: 1rem;
-  font-weight: bold;
+    background-color: $bg-alt;
+    color: $fg-alt;
+    padding: 10px;
+    border-radius: 6px;
+    min-width: 320px;
+    font-size: 1rem;
+    font-weight: bold;
   }
 
   .player_progress {
-    margin-top: 10px;
-
     scale {
       trough {
         all: unset;

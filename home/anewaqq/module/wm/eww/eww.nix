@@ -5,7 +5,7 @@ let
     PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.pamixer pkgs.gnused pkgs.pulseaudio pkgs.ripgrep ]}"
     
 get_vol() {
-  local vol=$(pamixer --get-volume-human | tr -d '%') # 
+  local vol=$(pamixer --get-volume-human | tr -d '%')
   
   local sink_name=$(pactl get-default-sink)
   local device=$(pactl list sinks | grep -A 50 "Name: $sink_name" | grep "Description:" | cut -d: -f2- | xargs)
@@ -42,12 +42,15 @@ done
     ) &
     echo $! > "$LOCK_FILE"
   '';
-playerListener = pkgs.writeShellScriptBin "player-listener" ''
+
+  playerListener = pkgs.writeShellScriptBin "player-listener" ''
     PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.playerctl pkgs.coreutils pkgs.gnused pkgs.gnugrep ]}"
     export LC_NUMERIC=C 
 
     COVER_DIR="/tmp/eww-covers"
     mkdir -p "$COVER_DIR"
+
+    NO_TRACK='{"title": "No track", "artist": "Unknown", "cover": "", "duration": 100, "position": 0, "elapsed": "0:00", "remaining": "0:00"}'
 
     format_time() {
         local secs=$1
@@ -56,15 +59,25 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
     }
 
     get_player_info() {
+      # Ищем активно играющий плеер
       local player
       player=$(playerctl --list-all 2>/dev/null | xargs -I {} playerctl -p {} status -f "{} {{status}}" 2>/dev/null | grep "Playing" | cut -d' ' -f1 | head -1)
 
+      # Если нет играющего — берём первый паузированный
       if [ -z "$player" ]; then
-        player=$(playerctl --list-all 2>/dev/null | head -1)
+        player=$(playerctl --list-all 2>/dev/null | xargs -I {} playerctl -p {} status -f "{} {{status}}" 2>/dev/null | grep "Paused" | cut -d' ' -f1 | head -1)
       fi
 
-      if [ -z "$player" ] || [ "$player" = "No players found" ]; then
-        echo '{"title": "No track", "artist": "Unknown", "cover": "", "duration": 100, "position": 0, "elapsed": "0:00", "remaining": "0:00"}'
+      if [ -z "$player" ]; then
+        echo "$NO_TRACK"
+        return
+      fi
+
+      # Проверяем что плеер реально отвечает
+      local status
+      status=$(playerctl -p "$player" status 2>/dev/null)
+      if [ -z "$status" ] || [ "$status" = "Stopped" ]; then
+        echo "$NO_TRACK"
         return
       fi
 
@@ -74,6 +87,12 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
       arturl=$(playerctl -p "$player" metadata mpris:artUrl 2>/dev/null)
       mpris_len=$(playerctl -p "$player" metadata mpris:length 2>/dev/null)
       pos=$(playerctl -p "$player" position 2>/dev/null)
+
+      # Если title пустой — плеер закрывается, пропускаем
+      if [ -z "$title" ]; then
+        echo "$NO_TRACK"
+        return
+      fi
 
       if [[ "$mpris_len" =~ ^[0-9]+$ ]]; then
           duration_secs=$((mpris_len / 1000000))
@@ -91,8 +110,8 @@ playerListener = pkgs.writeShellScriptBin "player-listener" ''
           cover_path="$clean_url"
       fi
 
-      clean_title=$(echo "''${title:-No Title}" | sed 's/"/\\"/g')
-      clean_artist=$(echo "''${artist:-Unknown Artist}" | sed 's/"/\\"/g')
+      clean_title=$(echo "''${title}" | sed 's/"/\\"/g')
+      clean_artist=$(echo "''${artist:-Unknown}" | sed 's/"/\\"/g')
 
       echo "{\"title\": \"$clean_title\", \"artist\": \"$clean_artist\", \"cover\": \"$cover_path\", \"duration\": $duration_secs, \"position\": $pos_secs, \"elapsed\": \"$(format_time $pos_secs)\", \"remaining\": \"$(format_time $((duration_secs - pos_secs)))\"}"
     }
