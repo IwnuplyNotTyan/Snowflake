@@ -1,58 +1,85 @@
-(deflisten volume "vol-listener")
-(deflisten player "player-listener")
+(deflisten volume
+  :initial '{"percent": "0", "device": ""}'
+  "vol-listener")
+
+(deflisten player
+  :initial '{"title": "No track", "artist": "", "cover": "", "duration": 100, "position": 0, "elapsed": "0:00", "remaining": "0:00"}'
+  "player-listener")
+
+; Уведомления обновляются через `eww update` из notif-listener напрямую
+(defvar notifications '[]')
+(defvar notif-count 0)
 (defpoll time :interval "1s" "date '+%H:%M'")
 
+; --- Notification widgets ---
+
+(defwidget notif-item [summary body app icon]
+  (box :class "notif_item" :orientation "h" :space-evenly false :spacing 10
+    (box :class "notif_icon_wrap" :valign "start"
+      (label :class "notif_icon" :text {icon != "" ? icon : ""}))
+    (box :orientation "v" :space-evenly false :valign "center" :hexpand true
+      (label :class "notif_app"     :text app     :halign "start" :limit-width 40)
+      (label :class "notif_summary" :text summary :halign "start" :limit-width 40)
+      (label :class "notif_body"    :text body    :halign "start" :limit-width 40
+             :visible {body != ""}))))
+
+(defwidget notif-stack []
+  (box :orientation "v" :space-evenly false :spacing 6
+    (for n in notifications
+      (notif-item
+        :summary {n.summary}
+        :body    {n.body}
+        :app     {n.app}
+        :icon    {n.icon}))))
+
+; --- Player widget ---
+
 (defwidget player-widget []
-  (box :class "player_widget" :orientation "v" :space-evenly false
-    ; Секция плеера — скрывается когда нет трека
+  (box :orientation "v" :space-evenly false :spacing 6
     (revealer
-      :reveal {player.title != "No track"}
+      :reveal {notif-count > 0}
       :transition "slidedown"
       :duration "200ms"
-      (box :orientation "v" :space-evenly false
-           :style "padding: 5px 5px 10px 5px;"
-        (box :orientation "h" :space-evenly false :spacing 15
-          (box :class "player_cover"
-            :style "background-image: url('${player.cover}');"
-            :width 80 :height 80)
-          (box :class "player_info" :orientation "v" :space-evenly false :valign "center"
-            (label :class "player_title" :text "${player.title}" :limit-width 50 :halign "start")
-            (label :class "player_artist" :text "${player.artist}" :halign "start")))
-        (box :class "player_progress"
-             :style "padding: 10px 0 0 0;"
-          (scale :min 0 :max "${player.duration}" :value "${player.position}" :vexpand true))))
-    ; Footer — всегда виден
-    (box :class "player_footer"
-         :orientation "h"
-         :space-evenly true
-      (label :text "󱎫  ${time}" :halign "start")
-      (label :text "󰓃  ${volume.device}" :limit-width 50 :halign "end"))))
+      (notif-stack))
+    (box :class "player_widget" :orientation "v" :space-evenly false
+      (revealer
+        :reveal {player.title != "No track"}
+        :transition "slidedown"
+        :duration "200ms"
+        (box :orientation "v" :space-evenly false
+             :style "padding: 5px 5px 10px 5px;"
+          (box :orientation "h" :space-evenly false :spacing 15
+            (box :class "player_cover"
+              :style "background-image: url('${player.cover}');"
+              :width 80 :height 80)
+            (box :class "player_info" :orientation "v" :space-evenly false :valign "center"
+              (label :class "player_title"  :text {player.title}  :limit-width 50 :halign "start")
+              (label :class "player_artist" :text {player.artist} :halign "start")))
+          (box :class "player_progress"
+               :style "padding: 10px 0 0 0;"
+            (scale :min 0 :max {player.duration} :value {player.position} :vexpand true))))
+      (box :class "player_footer"
+           :orientation "h"
+           :space-evenly true
+        (label :text {"󱎫  " + time}          :halign "start")
+        (label :text {"󰓃  " + volume.device} :limit-width 50 :halign "end")))))
 
 (defwidget volume-popup []
-  (box
-    :class "volume_pop"
-    :hexpand true
-    (box
-      :class "scale"
+  (box :class "volume_pop" :hexpand true
+    (box :class "scale"
       (scale
-        :min 0 
-        :max 101
+        :min 0 :max 101
         :value {volume.percent == "muted" ? 0 : volume.percent ?: 0}
-        :active false
-      )
-    )
-  )
-)
+        :active false))))
 
 (defwindow player
   :monitor 0
-  :stacking "bg"
+  :stacking "overlay"
   :focusable false
   :wm-ignore true
   :windowtype "dock"
   :geometry (geometry :x "-20px" :y "-20px" :anchor "bottom right")
-  (player-widget)
-)
+  (player-widget))
 
 (defwindow volume
   :monitor 0
@@ -61,5 +88,4 @@
   :wm-ignore true
   :windowtype "dock"
   :geometry (geometry :y "-20px" :x "-20px" :width "10%" :anchor "bottom center")
-  (volume-popup)
-)
+  (volume-popup))

@@ -3,6 +3,7 @@ $bg-alt: #101415;
 $fg: #c5c8c9;
 $fg-alt: #cccccc;
 $gray: #4c4c4c;
+$accent: #5e8d87;
 
 * {
   transition: 200ms;
@@ -15,11 +16,13 @@ window {
   background-color: transparent;
 }
 
+// --- Volume OSD ---
+
 .volume_pop {
   background-color: $bg;
   border-radius: 6px;
   padding: 0.5px;
-  
+
   label {
     font-size: 2rem;
     padding-right: 1.2rem;
@@ -40,18 +43,53 @@ window {
         border-radius: 6px;
       }
     }
-    
-    slider {
-      all: unset;
-    }
+
+    slider { all: unset; }
   }
 }
+
+// --- Notifications ---
+
+.notif_item {
+  background-color: $bg;
+  border-radius: 6px;
+  padding: 10px 12px;
+  min-width: 320px;
+
+  .notif_icon_wrap {
+    min-width: 28px;
+
+    .notif_icon {
+      font-size: 1.2rem;
+      color: $accent;
+    }
+  }
+
+  .notif_app {
+    font-size: 0.75rem;
+    color: $accent;
+    font-weight: bold;
+  }
+
+  .notif_summary {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: $fg;
+  }
+
+  .notif_body {
+    font-size: 0.85rem;
+    color: $fg-alt;
+  }
+}
+
+// --- Player ---
 
 .player_widget {
   background-color: $bg;
   border-radius: 6px;
   padding: 10px;
-  
+
   .player_cover {
     min-width: 80px;
     min-height: 80px;
@@ -66,7 +104,7 @@ window {
       font-weight: bold;
       color: $fg;
     }
-    
+
     .player_artist {
       font-size: 0.9rem;
       color: $fg-alt;
@@ -98,10 +136,8 @@ window {
           border-radius: 6px;
         }
       }
-      
-      slider {
-        all: unset;
-      }
+
+      slider { all: unset; }
     }
   }
 }
