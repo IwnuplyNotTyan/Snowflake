@@ -4,7 +4,7 @@ let
   python = pkgs.python3.withPackages (ps: [ ps.dbus-next ]);
 
   volListener = pkgs.writeShellScriptBin "vol-listener" ''
-    PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.pamixer pkgs.gnused pkgs.pulseaudio pkgs.ripgrep ]}"
+    PATH="${pkgs.lib.makeBinPath [ pkgs.pamixer pkgs.gnused pkgs.pulseaudio pkgs.ripgrep ]}:$PATH"
 
     get_vol() {
       local vol=$(pamixer --get-volume-human | tr -d '%')
@@ -21,7 +21,7 @@ let
   '';
 
   volPopup = pkgs.writeShellScriptBin "vol-popup" ''
-    PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.eww pkgs.procps pkgs.playerctl ]}"
+    PATH="${pkgs.lib.makeBinPath [ pkgs.eww pkgs.procps pkgs.playerctl ]}:$PATH"
     LOCK_FILE="/tmp/eww-volume-timer.lock"
 
     if ! eww active-windows | grep -q "volume"; then
@@ -43,7 +43,7 @@ let
   '';
 
   playerListener = pkgs.writeShellScriptBin "player-listener" ''
-    PATH="''${PATH}:${pkgs.lib.makeBinPath [ pkgs.playerctl pkgs.coreutils pkgs.gnused pkgs.gnugrep ]}"
+    PATH="${pkgs.lib.makeBinPath [ pkgs.playerctl pkgs.coreutils pkgs.gnused pkgs.gnugrep ]}:$PATH"
     export LC_NUMERIC=C
 
     NO_TRACK='{"title": "No track", "artist": "Unknown", "cover": "", "duration": 100, "position": 0, "elapsed": "0:00", "remaining": "0:00"}'
@@ -63,13 +63,15 @@ let
       fi
 
       if [ -z "$player" ]; then
-        echo "$NO_TRACK"; return
+        echo "$NO_TRACK"
+        return
       fi
 
       local status
       status=$(playerctl -p "$player" status 2>/dev/null)
       if [ -z "$status" ] || [ "$status" = "Stopped" ]; then
-        echo "$NO_TRACK"; return
+        echo "$NO_TRACK"
+        return
       fi
 
       local title artist arturl mpris_len pos
@@ -80,7 +82,8 @@ let
       pos=$(playerctl -p "$player" position 2>/dev/null)
 
       if [ -z "$title" ]; then
-        echo "$NO_TRACK"; return
+        echo "$NO_TRACK"
+        return
       fi
 
       if [[ "$mpris_len" =~ ^[0-9]+$ ]]; then
@@ -110,93 +113,111 @@ let
   '';
 
   notifListener = pkgs.writeScriptBin "notif-listener" ''
-    #!${python}/bin/python3
-    import asyncio, json, re, subprocess
-    from collections import OrderedDict
-    from dbus_next.aio import MessageBus
-    from dbus_next.service import ServiceInterface, method
-    from dbus_next import BusType
+#!${python}/bin/python3
+import asyncio, json, re, subprocess
+from collections import OrderedDict
+from dbus_next.aio import MessageBus
+from dbus_next.service import ServiceInterface, method
+from dbus_next import BusType
 
-    APP_ICONS = {
-      "firefox": "󰈹", "chromium": "", "google-chrome": "",
-      "telegram": "", "discord": "󰙯", "spotify": "",
-      "mpv": "", "vlc": "󰕼", "thunderbird": "󰇮",
-      "code": "󰨞", "bash": "", "zsh": "", "default": "",
-    }
-    TIMEOUT_DEFAULT = 5
-    MAX_NOTIFS      = 5
-    notifications   = OrderedDict()
-    next_id         = 1
+APP_ICONS = {
+    "firefox": "󰈹", "chromium": "󰈹", "google-chrome": "󰈹",
+    "telegram": "", "discord": "󰙯", "spotify": "",
+    "mpv": "󰐊", "vlc": "󰕼", "thunderbird": "󰇮",
+    "code": "󰨞", "bash": "", "zsh": "", "default": "󰂚"
+}
+TIMEOUT_DEFAULT = 5
+MAX_NOTIFS      = 5
+notifications   = OrderedDict()
+next_id         = 1
 
-    def get_icon(app):
-      return APP_ICONS.get((app or "").lower().split()[0], APP_ICONS["default"])
+def get_icon(app):
+    return APP_ICONS.get((app or "").lower().split()[0], APP_ICONS["default"])
 
-    def eww_update(data):
-      arr = json.dumps(list(data.values()), ensure_ascii=False)
-      cnt = str(len(data))
-      subprocess.Popen(
+def eww_update(data):
+    arr = json.dumps(list(data.values()), ensure_ascii=False)
+    cnt = str(len(data))
+    subprocess.Popen(
         ["eww", "update", f"notifications={arr}", f"notif-count={cnt}"],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-      )
+    )
 
-    def remove_notif(nid):
-      if nid in notifications:
+def remove_notif(nid):
+    if nid in notifications:
         del notifications[nid]
         eww_update(notifications)
 
-    class Notifs(ServiceInterface):
-      def __init__(self, loop):
+class Notifs(ServiceInterface):
+    def __init__(self, loop):
         super().__init__("org.freedesktop.Notifications")
         self._loop = loop
 
-      @method()
-      def GetCapabilities(self) -> "as":
+    @method()
+    def GetCapabilities(self) -> "as":
         return ["body", "body-markup", "icon-static"]
 
-      @method()
-      def GetServerInformation(self) -> "ssss":
+    @method()
+    def GetServerInformation(self) -> "ssss":
         return ["eww-notif", "eww", "1.0", "1.2"]
 
-      @method()
-      def Notify(self, app_name:"s", replaces_id:"u", app_icon:"s",
-                 summary:"s", body:"s", actions:"as",
-                 hints:"a{sv}", expire_timeout:"i") -> "u":
+    @method()
+    def Notify(self, app_name:"s", replaces_id:"u", app_icon:"s",
+               summary:"s", body:"s", actions:"as",
+               hints:"a{sv}", expire_timeout:"i") -> "u":
         global next_id
         nid = replaces_id if replaces_id != 0 else next_id
         if replaces_id == 0:
-          next_id += 1
+            next_id += 1
+        
         clean_body = re.sub(r"<[^>]+>", "", body).strip()
+        
+        # Поиск изображения в hints и app_icon [cite: 34, 35]
+        img_path = ""
+        if "image-path" in hints:
+            img_path = hints["image-path"].value
+        elif "image_path" in hints:
+            img_path = hints["image_path"].value
+        
+        if not img_path:
+            if app_icon.startswith("/") or app_icon.startswith("file://"):
+                img_path = app_icon.replace("file://", "")
+        
         notifications[nid] = {
-          "id": nid, "app": app_name or "notify",
-          "summary": summary, "body": clean_body,
-          "icon": get_icon(app_name),
+            "id": nid, 
+            "app": app_name or "notify",
+            "summary": summary, 
+            "body": clean_body,
+            "icon": get_icon(app_name),
+            "image": img_path
         }
+        
         while len(notifications) > MAX_NOTIFS:
-          del notifications[next(iter(notifications))]
+            notifications.popitem(last=False)
+        
         eww_update(notifications)
+        
         secs = expire_timeout / 1000 if expire_timeout > 0 else TIMEOUT_DEFAULT
         self._loop.call_later(secs, lambda: remove_notif(nid))
         return nid
 
-      @method()
-      def CloseNotification(self, id:"u"):
+    @method()
+    def CloseNotification(self, id:"u"):
         remove_notif(id)
 
-    async def main():
-      loop = asyncio.get_event_loop()
-      bus  = await MessageBus(bus_type=BusType.SESSION).connect()
-      bus.export("/org/freedesktop/Notifications", Notifs(loop))
-      await bus.request_name("org.freedesktop.Notifications")
-      # начальный сброс
-      eww_update(notifications)
-      await loop.create_future()
+async def main():
+    loop = asyncio.get_event_loop()
+    bus  = await MessageBus(bus_type=BusType.SESSION).connect()
+    bus.export("/org/freedesktop/Notifications", Notifs(loop))
+    await bus.request_name("org.freedesktop.Notifications")
+    eww_update(notifications)
+    await loop.create_future()
 
+if __name__ == "__main__":
     asyncio.run(main())
   '';
-
 in {
   programs.eww = {
-    enable    = true;
+    enable = true;
     configDir = ./.;
   };
 

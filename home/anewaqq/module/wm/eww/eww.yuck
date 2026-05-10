@@ -12,16 +12,23 @@
 (defpoll time :interval "1s" "date '+%H:%M'")
 
 ; --- Notification widgets ---
-
-(defwidget notif-item [summary body app icon]
-  (box :class "notif_item" :orientation "h" :space-evenly false :spacing 10
-    (box :class "notif_icon_wrap" :valign "start"
-      (label :class "notif_icon" :text {icon != "" ? icon : ""}))
+(defwidget notif-item [summary body app icon image]
+  (box :class "notif_item" :orientation "h" :space-evenly false :spacing 12
+    (box :class "notif_img"
+         :style {image != "" ? "background-image: url('${image}');" : ""}
+         :visible {image != ""}
+         :width 50 :height 50)
+    
+    (box :class "notif_icon_wrap" :valign "start" :visible {image == ""}
+      (label :class "notif_icon" :text {icon != "" ? icon : "󰂚"}))
+    
     (box :orientation "v" :space-evenly false :valign "center" :hexpand true
       (label :class "notif_app"     :text app     :halign "start" :limit-width 40)
       (label :class "notif_summary" :text summary :halign "start" :limit-width 40)
       (label :class "notif_body"    :text body    :halign "start" :limit-width 40
-             :visible {body != ""}))))
+             :visible {body != ""})) 
+  )
+)
 
 (defwidget notif-stack []
   (box :orientation "v" :space-evenly false :spacing 6
@@ -30,7 +37,8 @@
         :summary {n.summary}
         :body    {n.body}
         :app     {n.app}
-        :icon    {n.icon}))))
+        :icon    {n.icon}
+        :image   {n.image}))))
 
 ; --- Player widget ---
 
