@@ -35,7 +35,7 @@
 ; --- Player widget ---
 
 (defwidget player-widget []
-  (box :orientation "v" :space-evenly false :spacing 6
+  (box :orientation "v" :space-evenly false :spacing 6 :valign "end"
     (revealer
       :reveal {notif-count > 0}
       :transition "slidedown"
