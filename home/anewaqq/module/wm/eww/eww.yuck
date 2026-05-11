@@ -6,12 +6,11 @@
   :initial '{"title": "No track", "artist": "", "cover": "", "duration": 100, "position": 0, "elapsed": "0:00", "remaining": "0:00"}'
   "player-listener")
 
-; Уведомления обновляются через `eww update` из notif-listener напрямую
 (defvar notifications '[]')
 (defvar notif-count 0)
+(defvar notif-history '[]')
 (defpoll time :interval "1s" "date '+%H:%M'")
 
-; --- Notification widgets ---
 (defwidget notif-item [summary body app icon image]
   (box :class "notif_item" :orientation "h" :space-evenly false :spacing 12
     (box :class "notif_img"
@@ -40,6 +39,16 @@
         :icon    {n.icon}
         :image   {n.image}))))
 
+(defwidget notif-history-stack []
+  (box :orientation "v" :space-evenly false :spacing 4
+    (for n in notif-history
+      (notif-item
+        :summary {n.summary}
+        :body    {n.body}
+        :app     {n.app}
+        :icon    {n.icon}
+        :image   {n.image}))))
+
 ; --- Player widget ---
 
 (defwidget player-widget []
@@ -49,6 +58,11 @@
       :transition "slidedown"
       :duration "200ms"
       (notif-stack))
+    (revealer
+      :reveal {notif-count == 0 && arraylength(notif-history) > 0}
+      :transition "slidedown"
+      :duration "200ms"
+      (notif-history-stack))
     (box :class "player_widget" :orientation "v" :space-evenly false
       (revealer
         :reveal {player.title != "No track"}

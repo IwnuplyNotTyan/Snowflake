@@ -50,6 +50,14 @@ window {
 
 // --- Notifications ---
 
+.notif_history_label {
+  font-size: 0.72rem;
+  color: $gray;
+  font-weight: bold;
+  padding: 2px 4px 4px 4px;
+  letter-spacing: 0.04em;
+}
+
 .notif_item {
   background-color: $bg;
   border-radius: 6px;

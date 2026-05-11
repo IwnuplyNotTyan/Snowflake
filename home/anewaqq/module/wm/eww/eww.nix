@@ -114,7 +114,7 @@ let
 
   notifListener = pkgs.writeScriptBin "notif-listener" ''
 #!${python}/bin/python3
-import asyncio, json, re, subprocess
+import asyncio, json, os, re, subprocess
 from collections import OrderedDict
 from dbus_next.aio import MessageBus
 from dbus_next.service import ServiceInterface, method
@@ -127,18 +127,56 @@ APP_ICONS = {
     "code": "󰨞", "bash": "", "zsh": "", "default": "󰂚"
 }
 TIMEOUT_DEFAULT = 5
-MAX_NOTIFS      = 5
+MAX_NOTIFS      = 3
+MAX_HISTORY     = 3
 notifications   = OrderedDict()
+history         = []          # постоянная память последних 3 уведомлений
 next_id         = 1
+
+# Звук: ищем стандартный message.oga из freedesktop sound theme
+_SOUND_CANDIDATES = [
+    "/run/current-system/sw/share/sounds/freedesktop/stereo/message.oga",
+    "/run/current-system/sw/share/sounds/freedesktop/stereo/message-new-instant.oga",
+    "/run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga",
+    "/usr/share/sounds/freedesktop/stereo/message.oga",
+    "/usr/share/sounds/freedesktop/stereo/bell.oga",
+]
+
+def _find_sound():
+    for p in _SOUND_CANDIDATES:
+        if os.path.exists(p):
+            return p
+    # fallback: поиск через find в типичных prefix'ах
+    for base in ["/run/current-system/sw", "/usr"]:
+        d = os.path.join(base, "share/sounds/freedesktop/stereo")
+        if os.path.isdir(d):
+            for f in os.listdir(d):
+                if f.endswith(".oga") or f.endswith(".wav"):
+                    return os.path.join(d, f)
+    return None
+
+_SOUND_FILE = _find_sound()
+
+def play_sound():
+    if _SOUND_FILE:
+        # paplay из пакета pulseaudio/pipewire-pulse
+        subprocess.Popen(
+            ["paplay", _SOUND_FILE],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
 
 def get_icon(app):
     return APP_ICONS.get((app or "").lower().split()[0], APP_ICONS["default"])
 
 def eww_update(data):
-    arr = json.dumps(list(data.values()), ensure_ascii=False)
-    cnt = str(len(data))
+    arr  = json.dumps(list(data.values()), ensure_ascii=False)
+    hist = json.dumps(history, ensure_ascii=False)
+    cnt  = str(len(data))
     subprocess.Popen(
-        ["eww", "update", f"notifications={arr}", f"notif-count={cnt}"],
+        ["eww", "update",
+         f"notifications={arr}",
+         f"notif-count={cnt}",
+         f"notif-history={hist}"],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
     )
 
@@ -193,9 +231,29 @@ class Notifs(ServiceInterface):
         
         while len(notifications) > MAX_NOTIFS:
             notifications.popitem(last=False)
-        
+
+        # Записать в постоянную историю (не зависит от таймаута)
+        entry = {
+            "id": nid,
+            "app": app_name or "notify",
+            "summary": summary,
+            "body": clean_body,
+            "icon": get_icon(app_name),
+            "image": img_path
+        }
+        # Обновить существующую запись или добавить новую
+        for i, h in enumerate(history):
+            if h["id"] == nid:
+                history[i] = entry
+                break
+        else:
+            history.append(entry)
+        if len(history) > MAX_HISTORY:
+            history.pop(0)
+
         eww_update(notifications)
-        
+        play_sound()
+
         secs = expire_timeout / 1000 if expire_timeout > 0 else TIMEOUT_DEFAULT
         self._loop.call_later(secs, lambda: remove_notif(nid))
         return nid
@@ -226,5 +284,6 @@ in {
     volPopup
     playerListener
     notifListener
+    pkgs.pulseaudio   # paplay для звука уведомлений
   ];
 }
