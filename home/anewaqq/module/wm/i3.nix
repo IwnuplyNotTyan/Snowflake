@@ -190,11 +190,26 @@ in
           always  = true;
           notification = false;
         }
+	{
+	  command = "mpd-mpris";
+	  always  = true;
+	  notification = false;
+	}
         {
           command = "vicinae server";
           always  = true;
           notification = false;
         }
+	{
+	  command = "eww daemon";
+	  always  = true;
+	  notification = false;
+	}
+	{
+	  command = "notif-listener";
+	  always  = true;
+	  notification = false;
+	}
         {
           command = "syncthing --no-browser";
           always  = true;
