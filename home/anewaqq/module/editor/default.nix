@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./zed.nix # Zed
+    #./zed.nix # Zed
     ./nvim.nix # Neovim
   ];
 
