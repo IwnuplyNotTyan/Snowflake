@@ -18,6 +18,13 @@
       url = "github:iwnuplynottyan/waqq";
       flake = false;
     };
+    nix-doom-emacs-unstraightened = {	# Emacs
+	url = "github:marienz/nix-doom-emacs-unstraightened";
+    };
+    emacs-overlay = {
+    	url = "github:nix-community/emacs-overlay";
+    	inputs.nixpkgs.follows = "nixpkgs";
+    };
     #neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
     #disko = {
     #  url = "github:nix-community/disko";
@@ -51,9 +58,11 @@
       #neru,
       nix-index-database,
       nixgl,
+      emacs-overlay,
       home-manager,
       nix-on-droid,
       waqq,
+      nix-doom-emacs-unstraightened,
       ...
     }:
     let
@@ -63,10 +72,12 @@
           isDarwin ? false,
         }:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ]; # ++ [ neru.overlays.default ]
-          };
+	pkgs = import nixpkgs {
+	  inherit system;
+	  overlays = 
+	    (nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ])
+	    ++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
+	};
           pkgsUnstable = import nixpkgs-unstable { inherit system; };
           miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
         in
@@ -77,6 +88,7 @@
             ./pkgs/miri/option.nix
             nix-index-database.hmModules.nix-index
             agenix.homeManagerModules.age
+	    nix-doom-emacs-unstraightened.homeModule
             #neru.homeManagerModules.default
           ];
           extraSpecialArgs = {
@@ -85,6 +97,7 @@
               isDarwin
               nix-index-database
               waqq
+	      nix-doom-emacs-unstraightened
               miriPkg
               ;
           };

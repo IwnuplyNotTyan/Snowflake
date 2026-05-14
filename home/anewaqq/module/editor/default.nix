@@ -3,6 +3,7 @@
 {
   imports = [
     #./zed.nix # Zed
+    ./emacs/emacs.nix # Emacs
     ./nvim.nix # Neovim
   ];
 
