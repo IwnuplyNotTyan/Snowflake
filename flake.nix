@@ -97,7 +97,7 @@
               isDarwin
               nix-index-database
               waqq
-	      nix-doom-emacs-unstraightened
+	            nix-doom-emacs-unstraightened
               miriPkg
               ;
           };
