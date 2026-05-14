@@ -1,5 +1,7 @@
 (doom! :editor
        (evil +everywhere)
+       :emacs
+       dired
        :ui
        doom
        doom-dashboard
