@@ -17,6 +17,7 @@
     ./module/editor # Text editor
     ./module/tools/zathura.nix # Zathura
     ./module/nix.nix # Nix
+    ./module/browser/qute.nix # Browser
   ]
   ++ lib.optionals (!isDarwin) [
     # *(Non)Nixos
