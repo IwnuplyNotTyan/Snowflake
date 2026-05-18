@@ -43,11 +43,11 @@
     };
 
     # Nix-on-droid
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
+    #nix-on-droid = {
+    #  url = "github:nix-community/nix-on-droid/release-24.05";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #  inputs.home-manager.follows = "home-manager";
+    #};
   };
 
   outputs =
@@ -60,7 +60,7 @@
       nixgl,
       emacs-overlay,
       home-manager,
-      nix-on-droid,
+      #nix-on-droid,
       waqq,
       nix-doom-emacs-unstraightened,
       ...
@@ -97,7 +97,7 @@
               isDarwin
               nix-index-database
               waqq
-	            nix-doom-emacs-unstraightened
+	      nix-doom-emacs-unstraightened
               miriPkg
               ;
           };
@@ -130,19 +130,19 @@
         ];
       };
 
-      nixOnDroidConfigurations.nod = nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-linux"; };
-        modules = [
-          ./host/nod/configuration.nix
-          {
-            home-manager = {
-              config = ./host/nod/home.nix;
-              backupFileExtension = "hm-bak";
-              useGlobalPkgs = true;
-            };
-          }
-        ];
-      };
+      #nixOnDroidConfigurations.nod = nix-on-droid.lib.nixOnDroidConfiguration {
+      #  pkgs = import nixpkgs { system = "aarch64-linux"; };
+      #  modules = [
+      #    ./host/nod/configuration.nix
+      #    {
+      #      home-manager = {
+      #        config = ./host/nod/home.nix;
+      #        backupFileExtension = "hm-bak";
+      #        useGlobalPkgs = true;
+      #      };
+      #    }
+      #  ];
+      #};
 
       nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
         inherit system;
