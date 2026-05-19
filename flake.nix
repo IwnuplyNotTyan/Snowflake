@@ -80,6 +80,9 @@
 	};
           pkgsUnstable = import nixpkgs-unstable { inherit system; };
           miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
+	  mousewalkPkg = pkgs.callPackage ./pkgs/mousewalk/default.nix { 
+	    python3PackagesUnstable = pkgsUnstable.python3Packages;
+	  };
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -99,6 +102,7 @@
               waqq
 	      nix-doom-emacs-unstraightened
               miriPkg
+	      mousewalkPkg
               ;
           };
         };

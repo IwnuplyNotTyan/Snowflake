@@ -1,0 +1,5 @@
+{ mousewalkPkg, ... }:
+
+{
+  home.packages = [ mousewalkPkg ];
+}

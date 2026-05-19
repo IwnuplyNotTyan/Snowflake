@@ -18,6 +18,7 @@
     ./module/tools/zathura.nix # Zathura
     ./module/nix.nix # Nix
     #./module/browser/qute.nix # Browser
+    ./module/tools/mousewalk.nix # DVD Cursor!
   ]
   ++ lib.optionals (!isDarwin) [
     # *(Non)Nixos
@@ -26,7 +27,7 @@
   ++ lib.optionals (isDarwin) [
     # *MacOS
     ./module/wm/kitty.nix # *Only Kitty
-    ./module/wm/miri.nix   # *Miri WM
+    #./module/wm/miri.nix   # *Miri WM
   ];
 
   programs.home-manager.enable = true;
