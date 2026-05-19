@@ -1,6 +1,7 @@
 { lib
 , python3Packages
 , fetchFromGitHub
+, fetchurl
 , makeDesktopItem
 , copyDesktopItems
 , stdenv
@@ -18,11 +19,32 @@ let
     keywords = [ "screensaver" "mouse" "cursor" ];
     startupNotify = false;
   };
-pynput-darwin-fixed = python3Packages.pynput.overridePythonAttrs (oldAttrs: {
+
+  pyobjc-framework-ApplicationServices = python3Packages.buildPythonPackage {
+    pname = "pyobjc-framework-ApplicationServices";
+    version = "12.1";
+
+    format = "wheel";
+
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/fc/21/79e42ee836f1010f5fe9e97d2817a006736bd287c15a3674c399190a2e77/pyobjc_framework_applicationservices-12.1-cp313-cp313-macosx_10_13_universal2.whl";
+      hash = "sha256-vR9NuzgjSiSuaBn14iSFz33T3UB0/zv5qf20wBo7Sjg=";
+    };
+
+    propagatedBuildInputs = with python3Packages; [
+      pyobjc-core
+      pyobjc-framework-Cocoa
+      pyobjc-framework-Quartz
+    ];
+
+    doCheck = false;
+  };
+
+  pynput-darwin-fixed = python3Packages.pynput.overridePythonAttrs (oldAttrs: {
     dontCheckRuntimeDeps = true;
     propagatedBuildInputs = (oldAttrs.propagatedBuildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [
       python3Packages.pyobjc-framework-Quartz
-      python3Packages.pyobjc-framework-applicationservices
+      pyobjc-framework-ApplicationServices
     ];
   });
 in
