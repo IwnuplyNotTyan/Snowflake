@@ -11,6 +11,7 @@
   imports = [
     # Some cfg's
     ./pkgs.nix # Basic app's
+    ./module/ai.nix # AI (Opencode, ollama and etc)
     ./module/git.nix # Git(hub)
     ./module/ssh # SSH
     ./module/shell # Starship & zsh

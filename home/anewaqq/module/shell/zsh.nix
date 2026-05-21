@@ -52,6 +52,7 @@
         export PATH="$HOME/files/bin:$PATH"
         export PATH="$HOME/.local/bin:$PATH"
         export PATH="$HOME/.local/share/npm/bin:$PATH"
+        export PATH="$HOME/.npm-global/bin:$PATH"
       '';
 
       sessionVariables = {
