@@ -14,6 +14,7 @@
     ./module/ai.nix # AI (Opencode, ollama and etc)
     ./module/git.nix # Git(hub)
     ./module/ssh # SSH
+    ./module/tools/syncthing.nix # Syncthing
     ./module/shell # Starship & zsh
     ./module/editor # Text editor
     ./module/tools/zathura.nix # Zathura
