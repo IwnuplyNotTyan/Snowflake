@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }:
+{ pkgs, pkgsUnstable, lib, isDarwin, ... }:
 
 {
   home.packages = with pkgs; [
@@ -16,14 +16,20 @@
     userEmail = "wolflast21@gmail.com";
     
     extraConfig = {
-      #credential."https://github.com" = {
-      #  helper = "!/run/current-system/sw/bin/gh auth git-credential";
-      #};
-      
-      #credential."https://gist.github.com" = {
-      #  helper = "!/run/current-system/sw/bin/gh auth git-credential";
-      #};
-      
+	} // lib.optionalAttrs (!isDarwin) {
+  	credential."https://github.com" = {
+    	  helper = "!/run/current-system/sw/bin/gh auth git-credential";
+      };
+        credential."https://gist.github.com" = {
+    	  helper = "!/run/current-system/sw/bin/gh auth git-credential";
+        };
+      } // lib.optionalAttrs isDarwin {
+	credential."https://github.com" = {
+	  helper = "/Users/q/.nix-profile/bin/gh auth git-credential";
+      };
+  	credential."https://gist.github.com" = {
+    	  helper = "/Users/q/.nix-profile/bin/gh auth git-credential";
+      };
       credential."http://lira.iwnuply.store:3000" = {
         helper = "store";
       };
@@ -31,7 +37,6 @@
       credential."https://lira.welara-sun.ts.net" = {
         helper = "store";
       };
-
       
       http = {
         lowSpeedLimit = 1000;
@@ -52,6 +57,7 @@
 
 programs.gh = {
   enable = true;
+  gitCredentialHelper.enable = false;
   extensions = [
     pkgsUnstable.gh-enhance
     pkgs.gh-dash
