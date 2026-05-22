@@ -18,10 +18,10 @@
     extraConfig = {
 	} // lib.optionalAttrs (!isDarwin) {
   	credential."https://github.com" = {
-    	  helper = "!/run/current-system/sw/bin/gh auth git-credential";
+    	  helper = "/home/q/.nix-profile/bin/gh auth git-credential";
       };
         credential."https://gist.github.com" = {
-    	  helper = "!/run/current-system/sw/bin/gh auth git-credential";
+    	  helper = "/home/q/.nix-profile/bin/gh auth git-credential";
         };
       } // lib.optionalAttrs isDarwin {
 	credential."https://github.com" = {
