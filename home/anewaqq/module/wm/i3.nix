@@ -24,15 +24,10 @@ in
 
     xorg.setxkbmap
 
-    picom
     feh
     warpd
 
     mpd
-
-    syncthing
-
-    kitty
 
     nerd-fonts.iosevka
 
@@ -210,11 +205,6 @@ in
 	  always  = true;
 	  notification = false;
 	}
-        {
-          command = "syncthing --no-browser";
-          always  = true;
-          notification = false;
-        }
       ];
     };
   };
