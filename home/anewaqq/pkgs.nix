@@ -11,12 +11,8 @@
     [
       # Tools
       bottom
-      #joshuto
       rmpc
       comma
-
-      # Fonts
-      nerd-fonts.iosevka
 
       # SHH
       openssh
@@ -27,13 +23,10 @@
       eza
 
       # Etc
-      devenv
       deadnix
       treefmt
       chatterino7
       nodejs_22
-      unrar
-
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
