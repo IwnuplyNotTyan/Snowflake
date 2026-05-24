@@ -11,6 +11,7 @@
   ]
   ++ lib.optionals (isDarwin) [
   #./neru.nix	# Neru
-  ./miri.nix	# WM
+  #./miri.nix	# WM
+  ./skhd.nix    # Hotkey's
  ];
 }

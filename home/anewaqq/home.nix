@@ -29,7 +29,8 @@
   ]
   ++ lib.optionals (isDarwin) [
     # *MacOS
-    ./module/wm/kitty.nix # *Only Kitty
+    ./module/wm/skhd.nix    # *Hotkeys
+    ./module/wm/kitty.nix   # *Only Kitty
     #./module/wm/miri.nix   # *Miri WM
   ];
 
