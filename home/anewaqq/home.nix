@@ -17,6 +17,7 @@
     ./module/tools/syncthing.nix # Syncthing
     ./module/shell # Starship & zsh
     ./module/editor # Text editor
+    ./module/tools/mpd.nix # Music
     ./module/tools/zathura.nix # Zathura
     ./module/nix.nix # Nix
     #./module/browser/qute.nix # Browser
