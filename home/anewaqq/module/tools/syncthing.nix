@@ -1,5 +1,10 @@
-{ isDarwin, ... }:
+{ pkgs, lib, isDarwin, ... }:
+
 {
+  home.packages = lib.mkIf isDarwin [
+    pkgs.syncthing-macos
+  ];
+
   services.syncthing = {
     enable = true;
     settings = {
