@@ -83,6 +83,7 @@
 	  mousewalkPkg = pkgs.callPackage ./pkgs/mousewalk/default.nix { 
 	    python3PackagesUnstable = pkgsUnstable.python3Packages;
 	  };
+	  warpdPkg = pkgs.callPackage ./pkgs/warpd { };
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -103,6 +104,7 @@
 	      nix-doom-emacs-unstraightened
               miriPkg
 	      mousewalkPkg
+	      warpdPkg
               ;
           };
         };
