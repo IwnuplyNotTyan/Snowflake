@@ -27,8 +27,6 @@ in
     feh
     warpd
 
-    mpd
-
     nerd-fonts.iosevka
 
     # vicinae
@@ -180,16 +178,6 @@ in
           always  = true;
           notification = false;
         }
-        {
-          command = "mpd --no-daemon";
-          always  = true;
-          notification = false;
-        }
-	{
-	  command = "mpd-mpris";
-	  always  = true;
-	  notification = false;
-	}
         {
           command = "vicinae server";
           always  = true;
