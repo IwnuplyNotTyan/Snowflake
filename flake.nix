@@ -25,6 +25,7 @@
     	url = "github:nix-community/emacs-overlay";
     	inputs.nixpkgs.follows = "nixpkgs";
     };
+    tetrigo.url = "github:Broderick-Westrope/tetrigo";
     #neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
     #disko = {
     #  url = "github:nix-community/disko";
@@ -62,6 +63,7 @@
       home-manager,
       #nix-on-droid,
       waqq,
+      tetrigo,
       nix-doom-emacs-unstraightened,
       ...
     }:
@@ -74,7 +76,7 @@
         let
 	pkgs = import nixpkgs {
 	  inherit system;
-	  overlays = 
+	  overlays = [ tetrigo.overlays.default ] ++
 	    (nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ])
 	    ++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
 	};

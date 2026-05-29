@@ -29,6 +29,7 @@
       treefmt
       chatterino7
       nodejs_22
+      tetrigo
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
