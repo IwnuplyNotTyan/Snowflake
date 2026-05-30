@@ -21,6 +21,7 @@
     ./module/tools/zathura.nix # Zathura
     ./module/nix.nix # Nix
     #./module/browser/qute.nix # Browser
+    ./module/tools/koi.nix # Markdown suck
     ./module/tools/mousewalk.nix # DVD Cursor!
   ]
   ++ lib.optionals (!isDarwin) [

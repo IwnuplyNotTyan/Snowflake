@@ -25,6 +25,7 @@
     	url = "github:nix-community/emacs-overlay";
     	inputs.nixpkgs.follows = "nixpkgs";
     };
+    koi.url = "github:iwnuplynottyan/koi";
     tetrigo.url = "github:Broderick-Westrope/tetrigo";
     #neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
     #disko = {
@@ -64,6 +65,7 @@
       #nix-on-droid,
       waqq,
       tetrigo,
+      koi,
       nix-doom-emacs-unstraightened,
       ...
     }:
@@ -85,7 +87,6 @@
 	  mousewalkPkg = pkgs.callPackage ./pkgs/mousewalk/default.nix { 
 	    python3PackagesUnstable = pkgsUnstable.python3Packages;
 	  };
-	  koiPkg = pkgs.callPackage ./pkgs/koi { };
 	  warpdPkg = pkgs.callPackage ./pkgs/warpd { };
         in
         home-manager.lib.homeManagerConfiguration {
@@ -95,6 +96,7 @@
             ./pkgs/miri/option.nix
             nix-index-database.hmModules.nix-index
             agenix.homeManagerModules.age
+	    koi.homeManagerModules.default
 	    nix-doom-emacs-unstraightened.homeModule
             #neru.homeManagerModules.default
           ];
@@ -106,7 +108,7 @@
               waqq
 	      nix-doom-emacs-unstraightened
               miriPkg
-	      koiPkg
+	      koi
 	      mousewalkPkg
 	      warpdPkg
               ;

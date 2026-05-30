@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  koiPkg,
   isDarwin ? false,
   ...
 }:
@@ -14,7 +13,6 @@
       bottom
       rmpc
       comma
-      koiPkg
 
       # SHH
       openssh
