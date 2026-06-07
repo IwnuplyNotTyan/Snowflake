@@ -13,7 +13,7 @@
     enable = true;
     
     userName = "IwnuplyNotTyan";
-    userEmail = "wolflast21@gmail.com";
+    userEmail = "ikissiwnuply@gmail.com";
     
     extraConfig = {
 	} // lib.optionalAttrs (!isDarwin) {
