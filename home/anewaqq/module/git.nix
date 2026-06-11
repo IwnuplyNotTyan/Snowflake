@@ -59,8 +59,8 @@ programs.gh = {
   enable = true;
   gitCredentialHelper.enable = false;
   extensions = [
-    pkgsUnstable.gh-enhance
-    pkgs.gh-dash
+    pkgsUnstable.gh-dash
+    pkgsUnstable.gh-eco
   ];
 };
 }
