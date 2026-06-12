@@ -27,6 +27,7 @@
     };
     koi.url = "github:iwnuplynottyan/koi";
     tetrigo.url = "github:Broderick-Westrope/tetrigo";
+    #nix4gitbutler.url = "github:kmdtaufik/nix4gitbutler"; # Gitbutler
     #neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
     #disko = {
     #  url = "github:nix-community/disko";
@@ -60,6 +61,7 @@
       #neru,
       nix-index-database,
       nixgl,
+      #nix4gitbutler,
       emacs-overlay,
       home-manager,
       #nix-on-droid,
@@ -106,6 +108,7 @@
               isDarwin
               nix-index-database
               waqq
+	      #nix4gitbutler
 	      nix-doom-emacs-unstraightened
               miriPkg
 	      koi

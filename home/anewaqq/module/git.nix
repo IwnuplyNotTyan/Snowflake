@@ -7,6 +7,8 @@
     github-cli
     diffnav
     git
+
+    #nix4gitbutler.packages.x86_64-linux.cli
   ];
 
   programs.git = {
