@@ -28,9 +28,11 @@
       chatterino7
       nodejs_22
       tetrigo
+      gamescope
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
+      nixgl.nixVulkanIntel
       bluetuith
     ];
 
