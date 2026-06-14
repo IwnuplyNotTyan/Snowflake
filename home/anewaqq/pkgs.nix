@@ -28,6 +28,7 @@
       chatterino7
       nodejs_22
       tetrigo
+      buku
       gamescope
     ]
     ++ lib.optionals (!isDarwin) [
