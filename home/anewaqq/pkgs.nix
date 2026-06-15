@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgsUnstable,
   lib,
   isDarwin ? false,
   ...
@@ -29,7 +30,7 @@
       nodejs_22
       tetrigo
       buku
-      gamescope
+      pkgsUnstable.gamescope
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
