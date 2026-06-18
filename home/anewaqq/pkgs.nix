@@ -30,7 +30,6 @@
       nodejs_22
       tetrigo
       buku
-      pkgsUnstable.gamescope
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
