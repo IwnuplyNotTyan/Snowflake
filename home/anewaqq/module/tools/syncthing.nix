@@ -7,12 +7,14 @@
 
   services.syncthing = {
     enable = true;
+    overrideDevices = false;
+    overrideFolders = false;
     settings = {
       gui = {
         user = if isDarwin then "Anewaqq-mac" else "Eweless3";
       };
       devices = {
-        "Merlinx" = { id = "L7CUYJH-7I7TYV3-3BAD5I7-35OTRR2-G6ZBNRP-DOAET6G-Y5CATHI-EU4B5QB"; };
+        "Merlinx" = { id = "GMY525L-2WMZECJ-BVQDSXN-PCZGT2W-LTGXOG2-6AJJKKP-GQWKATJ-X7BYPAZ"; };
       };
       folders = {
         "Camera" = {
