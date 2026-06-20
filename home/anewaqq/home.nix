@@ -23,6 +23,7 @@
     #./module/browser/qute.nix   # Browser
     ./module/tools/koi.nix       # Markdown suck
     ./module/tools/mousewalk.nix # DVD Cursor!
+    ./module/media/telegram.nix  # Telegram Desktop
   ]
   ++ lib.optionals (!isDarwin) [
     # *(Non)Nixos
