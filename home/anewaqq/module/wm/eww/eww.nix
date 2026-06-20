@@ -332,6 +332,6 @@ in {
     volPopup
     playerListener
     notifListener
-    pkgs.pulseaudio   # paplay для звука уведомлений
+    pkgs.pulseaudio
   ];
 }
