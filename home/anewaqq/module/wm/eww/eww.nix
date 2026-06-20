@@ -1,16 +1,14 @@
-{ pkgs, osConfig ? {}, ... }:
+{ pkgs, isSway, ... }:
 
 let
-  isWayland = osConfig.wayland.windowManager.sway.enable or false;
-
-  windowsYuck = if isWayland then ''
+  windowsYuck = if isSway then ''
     (defwindow player
       :monitor 0
       :stacking "overlay"
       :focusable false
       :exclusive false
       :namespace "eww-player"
-      :geometry (geometry :x "20px" :y "50px" :anchor "bottom right")
+      :geometry (geometry :x "20px" :y "20px" :anchor "bottom right")
       (player-widget))
 
     (defwindow volume
@@ -19,7 +17,7 @@ let
       :focusable false
       :exclusive false
       :namespace "eww-volume"
-      :geometry (geometry :y "100px" :x "20px" :width "200px" :anchor "bottom center")
+      :geometry (geometry :y "20px" :x "20px" :width "200px" :anchor "bottom center")
       (volume-popup))
   '' else ''
     (defwindow player
