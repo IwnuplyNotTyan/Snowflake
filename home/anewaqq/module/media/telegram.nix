@@ -5,7 +5,7 @@
   ];
 
   xdg.desktopEntries = lib.mkIf (!isDarwin) {
-    telegram-desktop = {                    # <-- ось це було відсутнє
+    telegram-desktop = {
       name = "Telegram Desktop";
       comment = "Official Telegram messaging app";
       exec = "nixGLIntel ${pkgs.telegram-desktop}/bin/telegram-desktop %u";
