@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgsUnstable, lib, ... }:
 
 let
   mod = "Mod4";
@@ -37,7 +37,7 @@ in
 
     nerd-fonts.iosevka
 
-    # vicinae
+    pkgsUnstable.vicinae
   ];
 
   wayland.windowManager.sway = {
