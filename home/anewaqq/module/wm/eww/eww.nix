@@ -1,4 +1,48 @@
-{ pkgs, ... }:
+{ pkgs, osConfig ? {}, ... }:
+
+let
+  isWayland = osConfig.wayland.windowManager.sway.enable or false;
+
+  windowsYuck = if isWayland then ''
+    (defwindow player
+      :monitor 0
+      :stacking "overlay"
+      :focusable false
+      :exclusive false
+      :namespace "eww-player"
+      :geometry (geometry :x "20px" :y "50px" :anchor "bottom right")
+      (player-widget))
+
+    (defwindow volume
+      :monitor 0
+      :stacking "overlay"
+      :focusable false
+      :exclusive false
+      :namespace "eww-volume"
+      :geometry (geometry :y "100px" :x "20px" :width "200px" :anchor "bottom center")
+      (volume-popup))
+  '' else ''
+    (defwindow player
+      :monitor 0
+      :stacking "overlay"
+      :focusable false
+      :wm-ignore true
+      :windowtype "dock"
+      :geometry (geometry :x "-20px" :y "-20px" :anchor "bottom right")
+      (player-widget))
+
+    (defwindow volume
+      :monitor 0
+      :stacking "overlay"
+      :focusable false
+      :wm-ignore true
+      :windowtype "dock"
+      :geometry (geometry :y "-20px" :x "-20px" :width "10%" :anchor "bottom center")
+      (volume-popup))
+  '';
+
+  windowsFile = pkgs.writeText "windows.yuck" windowsYuck;
+in
 
 let
   python = pkgs.python3.withPackages (ps: [ ps.dbus-next ]);
@@ -276,8 +320,12 @@ if __name__ == "__main__":
 in {
   programs.eww = {
     enable = true;
-    configDir = ./.;
+    #configDir = ./.;
   };
+
+  xdg.configFile."eww/eww.yuck".source = ./eww.yuck;
+  xdg.configFile."eww/windows.yuck".source = windowsFile;
+  xdg.configFile."eww/eww.scss".source = ./eww.scss;
 
   home.packages = [
     volListener

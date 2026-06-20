@@ -1,0 +1,207 @@
+{ pkgs, lib, ... }:
+
+let
+  mod = "Mod4";
+  ws1  = "1";
+  ws2  = "2";
+  ws3  = "3";
+  ws4  = "4";
+  ws5  = "5";
+  ws6  = "6";
+  ws7  = "7";
+  ws8  = "8";
+  ws9  = "9";
+  ws10 = "10";
+in
+let
+  warpd-wayland = pkgs.stdenv.mkDerivation {
+    name = "warpd-wayland";
+    src = ../../../../pkgs/warpd-wayland;
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp $src $out/bin/warpd
+      chmod +x $out/bin/warpd
+    '';
+  };
+in 
+
+{
+  home.packages = with pkgs; [
+    pulseaudio
+
+    grim
+    wl-clipboard
+
+    warpd-wayland
+
+    nerd-fonts.iosevka
+
+    # vicinae
+  ];
+
+  wayland.windowManager.sway = {
+    enable = true;
+
+    package = pkgs.swayfx;
+    checkConfig = false;
+
+    extraConfig = ''
+      corner_radius 10
+      smart_corner_radius on
+    '';
+
+    config = {
+      modifier = mod;
+
+      bindkeysToCode = true;
+
+      output = {
+	"*" = {
+	  bg = "~/files/media/wal/*sovonegr*.* fill";
+	};
+      };
+
+      input = {
+	"*" = {
+	  xkb_layout = "us,ru";
+	  xkb_options = "grp:alt_space_toggle";
+	};
+      };
+
+      fonts = {
+        names = [ "Iosevka Nerd Font" ];
+        size  = 11.0;
+      };
+
+      terminal = "kitty";
+
+      window.border = 0;
+      floating.border = 0;
+
+      gaps = {
+        inner = 6;
+      };
+
+      bars = [];
+
+      floating.modifier = mod;
+
+      keybindings = lib.mkOptionDefault {
+        "${mod}+q" = "kill";
+
+        "${mod}+space" = "exec --no-startup-id vicinae open";
+
+	"${mod}+p" = "exec grim - | wl-copy";
+
+        "${mod}+l" = "focus left";
+        "${mod}+k" = "focus down";
+        "${mod}+j" = "focus up";
+        "${mod}+h" = "focus right";
+
+        "${mod}+Left"  = "focus left";
+        "${mod}+Down"  = "focus down";
+        "${mod}+Up"    = "focus up";
+        "${mod}+Right" = "focus right";
+
+        "${mod}+Shift+l" = "move left";
+        "${mod}+Shift+j" = "move down";
+        "${mod}+Shift+k" = "move up";
+        "${mod}+Shift+h" = "move right";
+
+        "${mod}+Shift+Left"  = "move left";
+        "${mod}+Shift+Down"  = "move down";
+        "${mod}+Shift+Up"    = "move up";
+        "${mod}+Shift+Right" = "move right";
+
+	"${mod}+Alt+x" = "exec warpd --hint";
+
+        "${mod}+y" = "split h";
+        "${mod}+u" = "split v";
+
+        "${mod}+f" = "fullscreen toggle";
+
+        "${mod}+Shift+space" = "floating toggle";
+        "${mod}+d"           = "focus mode_toggle";
+        "${mod}+a"           = "focus parent";
+
+        "${mod}+1" = "workspace ${ws1}";
+        "${mod}+2" = "workspace ${ws2}";
+        "${mod}+3" = "workspace ${ws3}";
+        "${mod}+4" = "workspace ${ws4}";
+        "${mod}+5" = "workspace ${ws5}";
+        "${mod}+6" = "workspace ${ws6}";
+        "${mod}+7" = "workspace ${ws7}";
+        "${mod}+8" = "workspace ${ws8}";
+        "${mod}+9" = "workspace ${ws9}";
+        "${mod}+0" = "workspace ${ws10}";
+
+        "${mod}+Shift+1" = "move container to workspace ${ws1}";
+        "${mod}+Shift+2" = "move container to workspace ${ws2}";
+        "${mod}+Shift+3" = "move container to workspace ${ws3}";
+        "${mod}+Shift+4" = "move container to workspace ${ws4}";
+        "${mod}+Shift+5" = "move container to workspace ${ws5}";
+        "${mod}+Shift+6" = "move container to workspace ${ws6}";
+        "${mod}+Shift+7" = "move container to workspace ${ws7}";
+        "${mod}+Shift+8" = "move container to workspace ${ws8}";
+        "${mod}+Shift+9" = "move container to workspace ${ws9}";
+        "${mod}+Shift+0" = "move container to workspace ${ws10}";
+
+        "${mod}+Shift+c" = "reload";
+        "${mod}+Shift+r" = "restart";
+	"${mod}+o" = "exec --no-startup-id eww open player && sleep 10 && eww close player";
+
+        "${mod}+r" = "mode resize";
+
+        "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && vol-popup";
+        "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && vol-popup";
+        "XF86AudioMute"        = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && vol-popup";
+        "XF86AudioMicMute"     = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+      };
+
+      modes = {
+        resize = {
+          "j"      = "resize shrink width 10 px or 10 ppt";
+          "k"      = "resize grow height 10 px or 10 ppt";
+          "l"      = "resize shrink height 10 px or 10 ppt";
+          "semicolon" = "resize grow width 10 px or 10 ppt";
+
+          "Left"   = "resize shrink width 3 px or 3 ppt";
+          "Down"   = "resize grow height 3 px or 3 ppt";
+          "Up"     = "resize shrink height 3 px or 3 ppt";
+          "Right"  = "resize grow width 3 px or 3 ppt";
+
+          "Return" = "mode default";
+          "Escape" = "mode default";
+          "${mod}+r" = "mode default";
+        };
+      };
+
+      window.commands = [
+        { criteria = { class = ".*"; }; command = "border pixel 0"; }
+
+        { criteria = { class = "vicinae"; }; command = "floating enable, sticky enable"; }
+	{ criteria = { title = "quickshell"; }; command = "floating enable, sticky enable, move window to position 1570 px 20 px"; }
+      ];
+
+      startup = [
+        {
+          command = "nixGLIntel picom -b";
+          always  = true;
+        }
+        {
+          command = "vicinae server";
+          always  = true;
+        }
+	{
+	  command = "eww daemon";
+	  always  = true;
+	}
+	{
+	  command = "notif-listener";
+	  always  = true;
+	}
+      ];
+    };
+  };
+}
