@@ -58,7 +58,7 @@ in
 
       keybindings = lib.mkOptionDefault {
 
-        #"${mod}+Return" = "exec --no-startup-id kitty";
+        #"${mod}+Return" = "exec --no-startup-id nixGLIntel kitty";
 
         "${mod}+q" = "kill";
 
@@ -179,7 +179,7 @@ in
           notification = false;
         }
         {
-          command = "vicinae server";
+          command = "nixGLIntel vicinae server";
           always  = true;
           notification = false;
         }

@@ -4,11 +4,11 @@
  imports = [
   ./kitty.nix   # Terminal
   ] ++ lib.optionals (!isDarwin) [
-  #./i3.nix 	# WM
+  ./i3.nix 	# WM
   ({ pkgs, lib, ... }: {
     _module.args.isSway = true;
   })
-  ./sway.nix
+  #./sway.nix
   ./picom.nix	# Picom
   #./qs/qs.nix  # Widgets
   ./eww/eww.nix
