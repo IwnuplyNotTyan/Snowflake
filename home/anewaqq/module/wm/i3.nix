@@ -153,7 +153,7 @@ in
       window.commands = [
         { criteria = { class = ".*"; }; command = "border pixel 0"; }
 
-        { criteria = { class = "vicinae"; }; command = "floating enable, sticky enable"; }
+        { criteria = { class = "vicinae"; }; command = "floating enable"; }
 	{ criteria = { title = "quickshell"; }; command = "floating enable, sticky enable, move window to position 1570 px 20 px"; }
       ];
 

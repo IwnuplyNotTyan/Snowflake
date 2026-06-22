@@ -6,7 +6,7 @@
   ] ++ lib.optionals (!isDarwin) [
   ./i3.nix 	# WM
   ({ pkgs, lib, ... }: {
-    _module.args.isSway = true;
+    _module.args.isSway = false; # Disabled
   })
   #./sway.nix
   ./picom.nix	# Picom
