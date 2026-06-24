@@ -552,11 +552,11 @@
     "waqq": {
       "flake": false,
       "locked": {
-        "lastModified": 1776785565,
-        "narHash": "sha256-7tFyyUkxG/cx8Uyf6nEjY+QYT3lVzDpkL/4szt875qM=",
+        "lastModified": 1782244718,
+        "narHash": "sha256-oxIadeqQyRjSF1pvNLvYWHXQZBbccWoGa2haCNhWbPg=",
         "owner": "iwnuplynottyan",
         "repo": "waqq",
-        "rev": "0b5673f7b7db3464ac7163bceeebc299d5656d38",
+        "rev": "4af0bb4c0787468e79cb96f6b72cfcb8526d6a69",
         "type": "github"
       },
       "original": {
