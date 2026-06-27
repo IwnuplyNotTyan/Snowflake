@@ -2,7 +2,7 @@
 
 {
   home.packages = [
-    pkgsUnstable.ollama
+   # pkgsUnstable.ollama
   ] ++ lib.optionals (isDarwin) [
     pkgs.nodejs
   ] ++ lib.optionals (!isDarwin) [
