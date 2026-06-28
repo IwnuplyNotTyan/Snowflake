@@ -21,6 +21,7 @@
     ./module/tools/zathura.nix   # Zathura
     ./module/nix.nix 		 # Nix
     #./module/browser/qute.nix   # Browser
+    ./module/tools/direnv.nix    # DirEnv
     ./module/tools/koi.nix       # Markdown suck
     ./module/tools/mousewalk.nix # DVD Cursor!
     ./module/media/telegram.nix  # Telegram Desktop
