@@ -29,7 +29,6 @@
       nodejs_22
       tetrigo
       buku
-      nh
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
