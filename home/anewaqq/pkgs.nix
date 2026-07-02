@@ -28,11 +28,9 @@
       chatterino7
       nodejs_22
       tetrigo
-      buku
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
-      nixgl.nixVulkanIntel
       bluetuith
     ];
 

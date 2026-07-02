@@ -20,8 +20,6 @@
     ./module/tools/mpd.nix 	 # Music
     ./module/tools/zathura.nix   # Zathura
     ./module/nix.nix 		 # Nix
-    ./module/tools/nap.nix	 # Snippets
-    #./module/browser/qute.nix   # Browser
     ./module/tools/direnv.nix    # DirEnv
     ./module/tools/koi.nix       # Markdown suck
     ./module/tools/mousewalk.nix # DVD Cursor!
