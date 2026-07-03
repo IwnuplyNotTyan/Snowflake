@@ -25,7 +25,6 @@
       # Etc
       deadnix
       treefmt
-      chatterino7
       nodejs_22
       tetrigo
     ]
