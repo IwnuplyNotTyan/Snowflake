@@ -23,8 +23,6 @@
       eza
 
       # Etc
-      deadnix
-      treefmt
       nodejs_22
       tetrigo
     ]
