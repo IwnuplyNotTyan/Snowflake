@@ -18,13 +18,13 @@
       url = "github:iwnuplynottyan/waqq";
       flake = false;
     };
-    nix-doom-emacs-unstraightened = {	# Emacs
-	url = "github:marienz/nix-doom-emacs-unstraightened";
-    };
-    emacs-overlay = {
-    	url = "github:nix-community/emacs-overlay";
-    	inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #nix-doom-emacs-unstraightened = {	# Emacs
+	#url = "github:marienz/nix-doom-emacs-unstraightened";
+    #};
+    #emacs-overlay = {
+    #	url = "github:nix-community/emacs-overlay";
+    #	inputs.nixpkgs.follows = "nixpkgs";
+    #};
     koi.url = "github:iwnuplynottyan/koi";
     tetrigo.url = "github:Broderick-Westrope/tetrigo";
     #nix4gitbutler.url = "github:kmdtaufik/nix4gitbutler"; # Gitbutler
@@ -62,13 +62,13 @@
       nix-index-database,
       nixgl,
       #nix4gitbutler,
-      emacs-overlay,
+      #emacs-overlay,
       home-manager,
       #nix-on-droid,
       waqq,
       tetrigo,
       koi,
-      nix-doom-emacs-unstraightened,
+      #nix-doom-emacs-unstraightened,
       ...
     }:
     let
@@ -81,8 +81,8 @@
 	pkgs = import nixpkgs {
 	  inherit system;
 	  overlays = [ tetrigo.overlays.default ] ++
-	    (nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ])
-	    ++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
+	    (nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ]);
+	    #++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
 	};
           pkgsUnstable = import nixpkgs-unstable { inherit system; };
           miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
@@ -99,7 +99,7 @@
             nix-index-database.hmModules.nix-index
             agenix.homeManagerModules.age
 	    koi.homeManagerModules.default
-	    nix-doom-emacs-unstraightened.homeModule
+	    #nix-doom-emacs-unstraightened.homeModule
             #neru.homeManagerModules.default
           ];
           extraSpecialArgs = {
@@ -109,7 +109,7 @@
               nix-index-database
               waqq
 	      #nix4gitbutler
-	      nix-doom-emacs-unstraightened
+	      #nix-doom-emacs-unstraightened
               miriPkg
 	      koi
 	      mousewalkPkg
