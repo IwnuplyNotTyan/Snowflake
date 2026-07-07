@@ -1,12 +1,12 @@
-{ pkgsUnstable, pkgs, lib, isDarwin, ... }:
+{ pkgs, lib, isDarwin, ... }:
 
 {
   home.packages = [
    # pkgsUnstable.ollama
   ] ++ lib.optionals (isDarwin) [
     pkgs.nodejs
-  ] ++ lib.optionals (!isDarwin) [
-    pkgsUnstable.opencode
+  #] ++ lib.optionals (!isDarwin) [
+  #  pkgsUnstable.opencode
   ];
 
   home.activation.installOpencode = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
