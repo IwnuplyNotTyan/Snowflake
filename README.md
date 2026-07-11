@@ -15,7 +15,7 @@
 # ✨ Features of config
 
 - OS - Arch Based / MacOS
-- WM - [https://i3wm.org/] / [SwayFX](https://github.com/WillPower3309/swayfx) / Aqua
+- WM - [I3wm](https://i3wm.org/) / [SwayFX](https://github.com/WillPower3309/swayfx) / Aqua
 - Shell - [Zsh](https://zsh.org)
 - Term - [Kitty](https://sw.kovidgoyal.net/kitty/) + [Tmux](https://github.com/tmux/tmux)
 - Music - [Rmpc](https://rmpc.mierak.dev/)
