@@ -19,6 +19,7 @@
 - Shell - [Zsh](https://zsh.org)
 - Term - [Kitty](https://sw.kovidgoyal.net/kitty/) + [Tmux](https://github.com/tmux/tmux)
 - Music - [Rmpc](https://rmpc.mierak.dev/)
+- Widgets - [EWW](https://github.com/elkowar/eww)
 - Comp - [Picom](https://picom.com)
 - Spotlight - [Vicinae](https://github.com/vicinaehq/vicinae/) / [Raycast](https://www.raycast.com/)
 - Editor - [Neovim](https://github.com/neovim/neovim) v0.11.7, [dots](https://github.com/IwnuplyNotTyan/waqq)
