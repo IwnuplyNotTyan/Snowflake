@@ -26,7 +26,6 @@
     #	inputs.nixpkgs.follows = "nixpkgs";
     #};
     koi.url = "github:iwnuplynottyan/koi";
-    tetrigo.url = "github:Broderick-Westrope/tetrigo";
     #nix4gitbutler.url = "github:kmdtaufik/nix4gitbutler"; # Gitbutler
     #neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
     #disko = {
@@ -66,7 +65,6 @@
       home-manager,
       #nix-on-droid,
       waqq,
-      tetrigo,
       koi,
       #nix-doom-emacs-unstraightened,
       ...
@@ -80,7 +78,8 @@
         let
 	pkgs = import nixpkgs {
 	  inherit system;
-	  overlays = [ tetrigo.overlays.default ] ++
+	  overlays = 
+	  #[ tetrigo.overlays.default ] ++
 	    (nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ]);
 	    #++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
 	};
