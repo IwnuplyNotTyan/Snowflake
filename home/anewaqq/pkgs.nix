@@ -11,7 +11,6 @@
     [
       # Tools
       bottom
-      rmpc
       comma
 
       # SHH

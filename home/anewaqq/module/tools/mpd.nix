@@ -1,4 +1,4 @@
-{ isDarwin, pkgs, ... }:
+{ isDarwin, lib, pkgs, ... }:
 
 {
   services = {
@@ -9,7 +9,7 @@
     mpd-mpris.enable = !isDarwin;
   };
 
-  home.packages = with pkgs; [
+  home.packages = lib.mkIf (!isDarwin) (with pkgs; [
     rmpc
-  ];
+  ]);
 }
