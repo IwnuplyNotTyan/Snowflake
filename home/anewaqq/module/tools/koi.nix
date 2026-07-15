@@ -1,6 +1,9 @@
 {
   programs.koi = {
     enable = true;
-    theme = "dracula";
+    theme = "pink";
+    nerd = true;
+    mosaic = true;
+    badges = true;
   };
 }
