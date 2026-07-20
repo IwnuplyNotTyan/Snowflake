@@ -84,7 +84,7 @@
 	    #++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
 	};
           pkgsUnstable = import nixpkgs-unstable { inherit system; };
-          miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
+          #miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
 	  mousewalkPkg = pkgs.callPackage ./pkgs/mousewalk/default.nix { 
 	    python3PackagesUnstable = pkgsUnstable.python3Packages;
 	  };
@@ -109,7 +109,7 @@
               waqq
 	      #nix4gitbutler
 	      #nix-doom-emacs-unstraightened
-              miriPkg
+              #miriPkg
 	      koi
 	      mousewalkPkg
 	      warpdPkg
