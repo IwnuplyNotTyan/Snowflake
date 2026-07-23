@@ -43,13 +43,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Nix-on-droid
-    #nix-on-droid = {
-    #  url = "github:nix-community/nix-on-droid/release-24.05";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #  inputs.home-manager.follows = "home-manager";
-    #};
   };
 
   outputs =
@@ -63,7 +56,6 @@
       #nix4gitbutler,
       #emacs-overlay,
       home-manager,
-      #nix-on-droid,
       waqq,
       koi,
       #nix-doom-emacs-unstraightened,
@@ -143,20 +135,6 @@
           }
         ];
       };
-
-      #nixOnDroidConfigurations.nod = nix-on-droid.lib.nixOnDroidConfiguration {
-      #  pkgs = import nixpkgs { system = "aarch64-linux"; };
-      #  modules = [
-      #    ./host/nod/configuration.nix
-      #    {
-      #      home-manager = {
-      #        config = ./host/nod/home.nix;
-      #        backupFileExtension = "hm-bak";
-      #        useGlobalPkgs = true;
-      #      };
-      #    }
-      #  ];
-      #};
 
       nixosConfigurations.lira = nixpkgs.lib.nixosSystem {
         inherit system;

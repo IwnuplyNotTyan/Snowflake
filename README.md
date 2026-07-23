@@ -48,7 +48,6 @@ nix build .#homeConfigurations.anewaqq.activationPackage
 |Eweless3|Linux_x86-64|Built for nixos| ❌ |
 |Anewaqq|Linux_x86-64|Home manager settings| ✅ |
 |Anewaqq@darwin|Darwin_x86-64|HM mac version| ✅ |
-|nod|Aarch64-linux|HM termux verson, broken | ❌* |
 
 `*` - Commented
 
