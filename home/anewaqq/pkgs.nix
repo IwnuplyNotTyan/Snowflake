@@ -23,6 +23,7 @@
 
       # Etc
       nodejs_22
+      chafa
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel
