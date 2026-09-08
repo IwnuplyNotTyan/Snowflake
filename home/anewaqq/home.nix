@@ -30,10 +30,10 @@
     # *(Non)Nixos
     ./module/wm/i3.nix	 			# I3WM
     #./module/wm/niri.nix			# Niri
-    ({ pkgs, lib, ... }: {       		# SwayWM
+    ({ pkgs, lib, ... }: {       		# Wayland*
       _module.args.isSway = false;
     })
-    #./module/wm/sway.nix
+    #./module/wm/sway.nix			# SwayWM
     ./module/wm/theme.nix			# Like a default gtk theme 
     ./module/wm/picom.nix			# Picom
     ./module/wm/eww/eww.nix			# Widgets
