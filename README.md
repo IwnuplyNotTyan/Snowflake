@@ -104,6 +104,8 @@ nix build .#homeConfigurations.anewaqq.activationPackage
 └── pkgs             # Self written packages
 ```
 
+*Can be changed modules status by comment in `./home/anewaqq/home.nix`*
+
 ---
 
 ## 🎏 Special thank's
