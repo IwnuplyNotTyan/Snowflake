@@ -81,6 +81,7 @@ nix build .#homeConfigurations.anewaqq.activationPackage
 |🍏|Warpd|warpd-macos|keyboard-driven virtual pointer|
 |🐧|-|warpd-linux|-|
 |✨|Mousewalk|mousewalk|DVD screensaver|
+|✨|Min|min|Minimalistic browser|
 
 🍏 - Macos
 
