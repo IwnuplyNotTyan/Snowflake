@@ -15,7 +15,9 @@
     ./module/git.nix 		 		# Git(hub)
     ./module/nix.nix 		 		# Nix
     ./module/ssh 		 		# SSH
-    ./module/shell 		 		# Starship & zsh
+    ./module/shell/tmux.nix			# tmux
+    ./module/shell/zsh.nix			# Zsh 
+    ./module/shell/starship.nix			# Starship
     ./module/editor 		 		# Text editor
     ./module/tools/syncthing.nix 		# Syncthing
     ./module/tools/mpd.nix 	 		# Music
