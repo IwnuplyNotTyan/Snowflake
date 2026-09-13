@@ -13,9 +13,6 @@
       bottom
       comma
 
-      # SHH
-      openssh
-
       # Shell
       ripgrep
       bat
