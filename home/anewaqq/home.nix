@@ -11,7 +11,7 @@
   imports = [
     # Some cfg's
     ./pkgs.nix 			 		# Basic app's
-    ./module/ai.nix 		 		# AI (Opencode, ollama and etc)
+    #./module/ai.nix 		 		# AI (Opencode, ollama and etc)
     ./module/git.nix 		 		# Git(hub)
     ./module/nix.nix 		 		# Nix
     ./module/ssh 		 		# SSH
