@@ -19,6 +19,7 @@
     ./module/shell/zsh.nix			# Zsh 
     ./module/shell/starship.nix			# Starship
     ./module/editor 		 		# Text editor
+    ./module/editor/idea.nix			# Idea
     ./module/tools/syncthing.nix 		# Syncthing
     ./module/tools/mpd.nix 	 		# Music
     ./module/tools/zathura.nix   		# Zathura
