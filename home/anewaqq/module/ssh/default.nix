@@ -53,6 +53,11 @@ in
           HostKeyAlgorithms = "+ssh-rsa";
         };
       };
+
+      "Monolisa" = { # Try IwnuplyNotTyan/Monolisa !
+        hostname = "0.0.0.0";
+	port = 23234;
+      };
     };
   };
   
