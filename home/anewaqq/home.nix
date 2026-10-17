@@ -29,13 +29,14 @@
     ./module/media/telegram.nix  		# Telegram Desktop
     ./module/wm/kitty.nix   	 		# Only Kitty
     ./module/wm/warpd.nix    	 		# Warpd
+
+    ({ pkgs, lib, ... }: {       		# Wayland*
+      _module.args.isSway = false;
+    })
   ] ++ lib.optionals (!isDarwin) [
     # *(Non)Nixos
     ./module/wm/i3.nix	 			# I3WM
     #./module/wm/niri.nix			# Niri
-    ({ pkgs, lib, ... }: {       		# Wayland*
-      _module.args.isSway = false;
-    })
     #./module/wm/sway.nix			# SwayWM
     ./module/wm/theme.nix			# Like a default gtk theme 
     ./module/wm/picom.nix			# Picom
