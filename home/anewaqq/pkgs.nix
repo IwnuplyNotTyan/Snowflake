@@ -21,6 +21,9 @@
       # Etc
       nodejs_22
       chafa
+
+
+      nerd-fonts.iosevka
     ]
     ++ lib.optionals (!isDarwin) [
       nixgl.nixGLIntel

@@ -4,7 +4,13 @@
 </div>
 
 <p align="center">
-  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/screenshot.png?raw=true" alt="Screenshot">
+<<<<<<< Updated upstream
+  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/screenshot.png?raw=true" width="50%" alt="Screenshot">
+  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/mac.jpg?raw=true" width="50%" alt="Macos">
+=======
+  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/screenshot.png?raw=true" width="45%" alt="Screenshot">
+  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/mac.jpg?raw=true" width="45%" alt="Macos">
+>>>>>>> Stashed changes
 </p>
 
 ---
@@ -22,7 +28,7 @@
 - Widgets - [EWW](https://github.com/elkowar/eww)
 - Comp - [Picom](https://picom.com)
 - Spotlight - [Vicinae](https://github.com/vicinaehq/vicinae/) / [Raycast](https://www.raycast.com/)
-- Editor - [Neovim](https://github.com/neovim/neovim) v0.11.7, [dots](https://github.com/IwnuplyNotTyan/waqq)
+- Editor - [Neovim](https://github.com/neovim/neovim) v0.11.7, [dots](https://github.com/IwnuplyNotTyan/waqq) / IDEA like
 
 `*` - Not supported, sway issue's: warpd can freeze system and unstable gamescope work. niri: [clipboard](https://github.com/niri-wm/niri/issues/112)
 
