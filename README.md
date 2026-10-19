@@ -4,13 +4,8 @@
 </div>
 
 <p align="center">
-<<<<<<< Updated upstream
-  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/screenshot.png?raw=true" width="50%" alt="Screenshot">
-  <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/mac.jpg?raw=true" width="50%" alt="Macos">
-=======
   <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/screenshot.png?raw=true" width="45%" alt="Screenshot">
   <img src="https://github.com/IwnuplyNotTyan/Snowflake/blob/main/.github/assets/mac.jpg?raw=true" width="45%" alt="Macos">
->>>>>>> Stashed changes
 </p>
 
 ---
