@@ -43,6 +43,8 @@
     ./module/wm/eww/eww.nix			# Widgets
     ./module/wm/wal.nix				# Wallpapers picker
     ./module/wm/vicinae.nix			# Vicinae
+
+    ./module/tools/cartridge.nix    # Emu wrapper, no darwin btw many emu's cant be builded in mac intel
   #]
   #++ lib.optionals (isDarwin) [
     # *MacOS

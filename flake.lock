@@ -21,6 +21,27 @@
         "type": "github"
       }
     },
+    "cartridge": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "nixpkgs-darwinx86": "nixpkgs-darwinx86"
+      },
+      "locked": {
+        "lastModified": 1792523502,
+        "narHash": "sha256-v8tFfRfbO318BNi2DMBuqVbc/OREWKoJo/hEJoU5tQs=",
+        "owner": "iwnuplynottyan",
+        "repo": "cartridge",
+        "rev": "7eef63380e8a3b2a01cb460c6a70973f66f6c361",
+        "type": "github"
+      },
+      "original": {
+        "owner": "iwnuplynottyan",
+        "repo": "cartridge",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -271,6 +292,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwinx86": {
+      "locked": {
+        "lastModified": 1792052774,
+        "narHash": "sha256-E7Hc6xMjd2onLR6KEwaGJHaFlbhE2J+R0ikHzBo0Xis=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7529d323f8f9926b38df356da2483c2a4e759d00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-26.05-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1782847189,
@@ -289,11 +326,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1776169885,
-        "narHash": "sha256-l/iNYDZ4bGOAFQY2q8y5OAfBBtrDAaPuRQqWaFHVRXM=",
+        "lastModified": 1792210252,
+        "narHash": "sha256-Mh0PUaIv4nFY+8wAGonaEh8iBzwsmdNlwjVHmFg1Biw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4bd9165a9165d7b5e33ae57f3eecbcb28fb231c9",
+        "rev": "09063bd1f2b36fd9fd793c36dfade7bd40a93dfc",
         "type": "github"
       },
       "original": {
@@ -369,6 +406,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "cartridge": "cartridge",
         "home-manager": "home-manager_2",
         "koi": "koi",
         "niri-flake": "niri-flake",

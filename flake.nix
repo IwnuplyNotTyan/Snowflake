@@ -30,6 +30,10 @@
       url = "github:iwnuplynottyan/koi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cartridge = {
+      url = "github:iwnuplynottyan/cartridge";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     #nix4gitbutler.url = "github:kmdtaufik/nix4gitbutler"; # Gitbutler
     #neru.url = "github:y3owk1n/neru";				# Mouse / Warpd analog
     #disko = {
@@ -63,6 +67,7 @@
       waqq,
       koi,
       niri-flake,
+      cartridge,
       #nix-doom-emacs-unstraightened,
       ...
     }:
@@ -87,6 +92,7 @@
 	  };
 	  warpdMacosPkg = pkgs.callPackage ./pkgs/warpd-macos { };
 	  warpdLinuxPkg = pkgs.callPackage ./pkgs/warpd-linux { };
+	  cartridgePkg = cartridge.packages.${system}.default;
 	  #minPkg = pkgs.callPackage ./pkgs/min { };
         in
         home-manager.lib.homeManagerConfiguration {
@@ -107,6 +113,7 @@
               isDarwin
               nix-index-database
               waqq
+              cartridgePkg
 	      #nix4gitbutler
 	      #nix-doom-emacs-unstraightened
               #miriPkg
