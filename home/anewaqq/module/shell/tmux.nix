@@ -12,6 +12,9 @@
     keyMode = "vi";
 
     extraConfig = ''
+      # Clipboard
+      set -s set-clipboard on
+
       # Bar
       set -g message-style 'bg=default,fg=yellow,bold'
       set -g status-style  'bg=default'
