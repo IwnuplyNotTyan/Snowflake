@@ -1,4 +1,4 @@
-{ pkgs, lib, cartridgePkg, ... }:
+{ pkgs, lib, cartridgePkg, isDarwin, imports, ... }:
 
 let
   emus = pkgs.buildEnv {
@@ -14,7 +14,19 @@ let
     '';
   };
 in {
-  home.packages = [ cartridge-wrapped ];
+  programs.cartridge = {
+    package = cartridge-wrapped;
+    romDir = "~/Documents/games";
+    lang = "en";
+    showArt = true;
+    openApps = isDarwin;
+
+    steam = {
+      autoAdd = true;
+      prefix = "Cartridge";
+      icons_provider = "steamgriddb";
+    };
+  };
 
   home.file.".config/cartridge/recipes/retroarch.json".source = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/IwnuplyNotTyan/Cartridge/refs/heads/main/_examples/retroarch.json";

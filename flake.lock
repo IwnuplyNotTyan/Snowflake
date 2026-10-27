@@ -29,11 +29,11 @@
         "nixpkgs-darwinx86": "nixpkgs-darwinx86"
       },
       "locked": {
-        "lastModified": 1792523502,
-        "narHash": "sha256-v8tFfRfbO318BNi2DMBuqVbc/OREWKoJo/hEJoU5tQs=",
+        "lastModified": 1793007337,
+        "narHash": "sha256-SGNSUTFw7j0lszBAVCWCnfJpBSwoopwnCN7QjmKLkOc=",
         "owner": "iwnuplynottyan",
         "repo": "cartridge",
-        "rev": "7eef63380e8a3b2a01cb460c6a70973f66f6c361",
+        "rev": "733028bef95a024f0d80b43e45d279749f1cc565",
         "type": "github"
       },
       "original": {

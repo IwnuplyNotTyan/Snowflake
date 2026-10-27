@@ -92,7 +92,7 @@
 	  };
 	  warpdMacosPkg = pkgs.callPackage ./pkgs/warpd-macos { };
 	  warpdLinuxPkg = pkgs.callPackage ./pkgs/warpd-linux { };
-	  cartridgePkg = cartridge.packages.${system}.default;
+	  cartridgePkg = if (!isDarwin) then cartridge.packages.${system}.default else null;
 	  #minPkg = pkgs.callPackage ./pkgs/min { };
         in
         home-manager.lib.homeManagerConfiguration {
@@ -102,11 +102,12 @@
             ./pkgs/miri/option.nix
             nix-index-database.homeModules.nix-index
             agenix.homeManagerModules.age
-	    koi.homeManagerModules.default
-	    niri-flake.homeModules.niri
-	    #nix-doom-emacs-unstraightened.homeModule
+	        koi.homeManagerModules.default
+	        niri-flake.homeModules.niri
+	        #nix-doom-emacs-unstraightened.homeModule
             #neru.homeManagerModules.default
-          ];
+          ]
+          ++ pkgs.lib.optionals (!isDarwin) cartridge.homeModules.default;
           extraSpecialArgs = {
             inherit
               pkgsUnstable
