@@ -10,18 +10,18 @@
 
   imports = [
     # Some cfg's
-    ./pkgs.nix 			 		# Basic app's
-    #./module/ai.nix 		 		# AI (Opencode, ollama and etc)
-    ./module/git.nix 		 		# Git(hub)
-    ./module/nix.nix 		 		# Nix
-    ./module/ssh 		 		# SSH
-    ./module/shell/tmux.nix			# tmux
-    ./module/shell/zsh.nix			# Zsh 
+    ./pkgs.nix 			 		        # Basic app's
+    #./module/ai.nix 		 		    # AI (Opencode, ollama and etc)
+    ./module/git.nix 		 		    # Git(hub)
+    ./module/nix.nix 		 		    # Nix
+    ./module/ssh 		 		        # SSH
+    ./module/shell/tmux.nix			    # tmux
+    ./module/shell/zsh.nix			    # Zsh
     ./module/shell/starship.nix			# Starship
-    ./module/editor 		 		# Text editor
+    ./module/editor 		 		    # Text editor
     ./module/editor/idea.nix			# Idea
     ./module/tools/syncthing.nix 		# Syncthing
-    ./module/tools/mpd.nix 	 		# Music
+    ./module/tools/mpd.nix 	 		    # Music
     ./module/tools/zathura.nix   		# Zathura
     ./module/tools/direnv.nix    		# DirEnv
     ./module/tools/koi.nix       		# Markdown suck

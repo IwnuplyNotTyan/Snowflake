@@ -4,6 +4,7 @@
   inputs = {
     # Repository's
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable"; # Unstable
+    nixpkgs-darwinx86.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin"; # Intel mac
     nixpkgs.url = "github:Nixos/nixpkgs/nixos-25.11"; # 25.11
 
     # Addition stuff
@@ -57,6 +58,7 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-darwinx86,
       agenix,
       #neru,
       nix-index-database,
@@ -85,14 +87,17 @@
 	    (nixpkgs.lib.optionals (!isDarwin) [ nixgl.overlay ]);
 	    #++ (nixpkgs.lib.optionals isDarwin [ emacs-overlay.overlay ]);
 	};
-          pkgsUnstable = import nixpkgs-unstable { inherit system; };
-          #miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
-	  mousewalkPkg = pkgs.callPackage ./pkgs/mousewalk/default.nix { 
+      pkgsUnstable =
+        if isDarwin
+        then import nixpkgs-darwinx86 { inherit system; }
+        else import nixpkgs-unstable { inherit system; };
+      #miriPkg = pkgs.callPackage ./pkgs/miri/default.nix { };
+	  mousewalkPkg = pkgs.callPackage ./pkgs/mousewalk/default.nix {
 	    python3PackagesUnstable = pkgsUnstable.python3Packages;
 	  };
 	  warpdMacosPkg = pkgs.callPackage ./pkgs/warpd-macos { };
 	  warpdLinuxPkg = pkgs.callPackage ./pkgs/warpd-linux { };
-	  cartridgePkg = if (!isDarwin) then cartridge.packages.${system}.default else null;
+	  #cartridgePkg = if (!isDarwin) then cartridge.packages.${system}.default else null;
 	  #minPkg = pkgs.callPackage ./pkgs/min { };
         in
         home-manager.lib.homeManagerConfiguration {
@@ -106,23 +111,23 @@
 	        niri-flake.homeModules.niri
 	        #nix-doom-emacs-unstraightened.homeModule
             #neru.homeManagerModules.default
-          ]
-          ++ pkgs.lib.optionals (!isDarwin) cartridge.homeModules.default;
+          ];
           extraSpecialArgs = {
             inherit
               pkgsUnstable
+              cartridge
               isDarwin
               nix-index-database
               waqq
-              cartridgePkg
-	      #nix4gitbutler
-	      #nix-doom-emacs-unstraightened
+              #cartridgePkg
+	          #nix4gitbutler
+	          #nix-doom-emacs-unstraightened
               #miriPkg
-	      koi
-	      mousewalkPkg
-	      warpdMacosPkg
-	      #minPkg
-	      warpdLinuxPkg
+	          koi
+	          mousewalkPkg
+	          warpdMacosPkg
+	          #minPkg
+	          warpdLinuxPkg
               ;
           };
         };

@@ -1,4 +1,4 @@
-{ pkgs, lib, cartridgePkg, isDarwin, imports, ... }:
+{ pkgs, lib, cartridge, isDarwin, ... }:
 
 let
   emus = pkgs.buildEnv {
@@ -7,14 +7,17 @@ let
   };
   cartridge-wrapped = pkgs.symlinkJoin {
     name = "cartridge";
-    paths = [ cartridgePkg ];
+    paths = [ cartridge.packages.${pkgs.stdenv.hostPlatform.system}.default ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/cartridge --prefix PATH : ${emus}/bin
     '';
   };
 in {
+  imports = [ cartridge.homeModules.default ];
+
   programs.cartridge = {
+    enable = true;
     package = cartridge-wrapped;
     romDir = "~/Documents/games";
     lang = "en";
@@ -24,7 +27,7 @@ in {
     steam = {
       autoAdd = true;
       prefix = "Cartridge";
-      icons_provider = "steamgriddb";
+      iconsProvider = "steamgriddb";
     };
   };
 
