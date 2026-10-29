@@ -20,8 +20,7 @@ in {
     enable = true;
     package = cartridge-wrapped;
     romDir = "~/Documents/games";
-    lang = "en";
-    showArt = true;
+    lang = "en"; showArt = true;
     openApps = isDarwin;
 
     steam = {

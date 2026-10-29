@@ -15,8 +15,6 @@ in
     path = "${home}/.ssh/id_rsa";
   };
 
-  age.identityPaths = [ "${home}/.config/age.txt" ];
-
   programs.ssh = {
     enable = true;
 
