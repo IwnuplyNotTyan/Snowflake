@@ -31,6 +31,9 @@
 
 ## 🕊️ Installing
 
+> [!WARNING]
+> SSH keys in repo was encrypted via [age](https://github.com/FiloSottile/age), replace their and install your age key in `~/.config/age.txt`, for ageless keys need some patches 
+
 ### 🍏 For Darwin_x86-64
 ```sh
 NIXPKGS_ALLOW_BROKEN=1 nix build .#homeConfigurations.anewaqq@darwin.activationPackage --impure
