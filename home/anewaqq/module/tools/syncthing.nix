@@ -18,23 +18,27 @@
       };
       folders = {
         "Camera" = {
-          path = if isDarwin then "~/Documents/Camera" else "~/files/Camera";
-          devices = [ "Merlinx" ];
+          #path = if isDarwin then "~/Documents/Camera" else "~/files/Camera";
+          path = "~/Documents/Camera";
+	  devices = [ "Merlinx" ];
         };
 	"Pics" = {
-	  path = if isDarwin then "~/Documents/Pics" else "~/files/media/Pics";
+	  #path = if isDarwin then "~/Documents/Pics" else "~/files/media/Pics";
+	  path = "~/Documents/Pics";
 	  devices = [ "Merlinx" ];
 	};
         "Music" = {
-          path = if isDarwin then "~/Documents/Music" else "~/files/media/Music";
-          devices = [ "Merlinx" ];
+          #path = if isDarwin then "~/Documents/Music" else "~/files/media/Music";
+          path = "~/Documents/Music";
+	  devices = [ "Merlinx" ];
         };
         #"Wallpapers" = {
         #  path = if isDarwin then "~/Documents/Wal" else "~/files/media/wal";
         #  devices = [ "Merlinx" ];
         #};
 	"Aegis" = {
-	  path = if isDarwin then "~/Documents/Aegis" else "~/files/aegis";
+	  #path = if isDarwin then "~/Documents/Aegis" else "~/files/aegis";
+	  path = "~/Documents/Aegis";
 	  devices = [ "Merlinx" ];
 	};
       };

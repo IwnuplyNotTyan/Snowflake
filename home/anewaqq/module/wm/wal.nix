@@ -11,7 +11,7 @@ let
     ]}:$PATH"
 set -euo pipefail
 IS_SWAY=${if isSway then "1" else "0"}
-WALLPAPER_DIR="$HOME/files/media/Pics/"
+WALLPAPER_DIR="$HOME/Documents/Pics/"
 TOLERANCE=0.05
 MIN_WIDTH=1920
 MIN_HEIGHT=1080
