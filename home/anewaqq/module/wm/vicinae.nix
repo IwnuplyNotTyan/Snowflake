@@ -66,6 +66,10 @@
         };
       };
 
+      global_shortcuts = {
+      	toggle = "";
+      };
+
       theme = {
         dark = {
           name = "vicinae-dark";
