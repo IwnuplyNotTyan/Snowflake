@@ -3,14 +3,14 @@
 {
   services = {
     mpd = {
-      enable = !isDarwin;
+      enable = true;
       musicDirectory = "~/Documents/Music/";
       #musicDirectory = if isDarwin then "~/Documents/Music/" else "~/files/media/Music/";
     };
     mpd-mpris.enable = !isDarwin;
   };
 
-  home.packages = lib.mkIf (!isDarwin) (with pkgs; [
+  home.packages = with pkgs; [
     rmpc
-  ]);
+  ];
 }
