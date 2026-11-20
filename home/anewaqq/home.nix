@@ -15,6 +15,7 @@
     ./module/git.nix 		 		    # Git(hub)
     ./module/nix.nix 		 		    # Nix
     ./module/ssh 		 		        # SSH
+    ./module/age.nix					# Crypt
     ./module/shell/tmux.nix			    # tmux
     ./module/shell/zsh.nix			    # Zsh
     ./module/shell/starship.nix			# Starship

@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
-  age.identityPaths = [ "${home}/.config/age.txt" ];
+  age.identityPaths = [ "${config.home.homeDirectory}/.config/age.txt" ];
 }
