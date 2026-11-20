@@ -97,6 +97,7 @@
 	  };
 	  warpdMacosPkg = pkgs.callPackage ./pkgs/warpd-macos { };
 	  warpdLinuxPkg = pkgs.callPackage ./pkgs/warpd-linux { };
+	  mpdNowPlayablePkg = if isDarwin then pkgs.callPackage ./pkgs/mpd-now-playable { } else null;
 	  #cartridgePkg = if (!isDarwin) then cartridge.packages.${system}.default else null;
 	  #minPkg = pkgs.callPackage ./pkgs/min { };
         in
@@ -128,6 +129,7 @@
 	          warpdMacosPkg
 	          #minPkg
 	          warpdLinuxPkg
+	          mpdNowPlayablePkg
               ;
           };
         };
