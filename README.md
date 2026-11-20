@@ -86,6 +86,7 @@ nix build .#homeConfigurations.anewaqq.activationPackage
 |🐧|-|warpd-linux|-|
 |✨|Mousewalk|mousewalk|DVD screensaver|
 |✨|Min|min|Minimalistic browser|
+|🍏|MPD Now Playable| mpd-now-playable| Music status|
 
 🍏 - Macos
 
